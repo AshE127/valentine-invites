@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Valentine's Invitation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #3d2418 50%, #2c1810 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .config-container {
+            background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+            padding: 50px 60px;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 100%;
+            border: 2px solid #c9b896;
+        }
+
+        h1 {
+            color: #8b1a1a;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 32px;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #5a4a3a;
+            margin-bottom: 40px;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d1810;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .label-description {
+            display: block;
+            margin-bottom: 10px;
+            color: #6d5a4a;
+            font-size: 14px;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e8dcc8;
+            border-radius: 5px;
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            background: white;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #8b1a1a;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #8b7355;
+            margin-top: 5px;
+        }
+
+        .image-preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 50%;
+            border: 3px solid #e8dcc8;
+            object-fit: cover;
+        }
+
+        .preview-note {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #6d5a4a;
+            font-style: italic;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #e8dcc8, transparent);
+            margin: 35px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #8b1a1a;
+            color: #f4e8d8;
+            box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #6d1311;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139, 26, 26, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e8dcc8;
+            color: #2d1810;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: #d4c8b8;
+            transform: translateY(-2px);
+        }
+
+        .event-details-section {
+            background: rgba(232, 220, 200, 0.3);
+            padding: 25px;
+            border-radius: 5px;
+            border: 1px solid #c9b896;
+            margin-top: 30px;
+        }
+
+        .event-details-section h3 {
+            color: #6d1311;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.5s;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .link-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .link-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #c3e6cb;
+            border-radius: 5px;
+            background: white;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .copy-btn {
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+        }
+
+        .copy-btn.copied {
+            background: #155724;
+        }
+
+        @media (max-width: 600px) {
+            .config-container {
+                padding: 30px 25px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="config-container">
+        <h1>Create Your Valentine's Invitation 💝</h1>
+        <p class="subtitle">Customize your romantic invitation in just a few steps</p>
+
+        <form id="configForm">
+            <!-- Recipient Name -->
+            <div class="form-group">
+                <label for="recipientName">
+                    Recipient's Name
+                    <span class="label-description">This will appear in "Will you be my Valentine, [Name]?"</span>
+                </label>
+                <input type="text" id="recipientName" placeholder="e.g., Sarah" maxlength="30" required>
+                <div class="char-count"><span id="nameCount">0</span>/30</div>
+            </div>
+
+            <!-- Seal Initials -->
+            <div class="form-group">
+                <label for="sealInitials">
+                    Wax Seal Initials
+                    <span class="label-description">2-3 letters to appear on the heart seal</span>
+                </label>
+                <input type="text" id="sealInitials" placeholder="e.g., ZK" maxlength="3" required style="text-transform: uppercase;">
+                <div class="char-count"><span id="initialsCount">0</span>/3</div>
+            </div>
+
+            <!-- Profile Picture -->
+            <div class="form-group">
+                <label for="profilePicture">
+                    Profile Picture (Optional)
+                    <span class="label-description">Upload a photo to replace the cat emoji on the question page</span>
+                </label>
+                <input type="file" id="profilePicture" accept="image/*">
+                <div class="image-preview" id="imagePreview"></div>
+                <div class="preview-note">Recommended: Square image, at least 200x200px</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Event Details -->
+            <div class="event-details-section">
+                <h3>Valentine's Date Details</h3>
+
+                <div class="form-group">
+                    <label for="eventDate">When</label>
+                    <input type="text" id="eventDate" placeholder="e.g., Friday, February 14, 2026 at 7:00 PM" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventTitle">What</label>
+                    <input type="text" id="eventTitle" placeholder="e.g., Romantic Valentine's Dinner" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventLocation">Where</label>
+                    <input type="text" id="eventLocation" placeholder="e.g., The French Laundry" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="personalMessage">Personal Message</label>
+                    <textarea id="personalMessage" rows="3" placeholder="e.g., I can't wait to spend this special day with you! 💝" maxlength="200"></textarea>
+                    <div class="char-count"><span id="messageCount">0</span>/200</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Extra Details (Optional) -->
+            <div class="form-group">
+                <label for="extraDetails">
+                    Extra Details (Optional)
+                    <span class="label-description">Add any additional information like dress code, special instructions, or surprises planned</span>
+                </label>
+                <textarea id="extraDetails" rows="4" placeholder="e.g., Dress code: Semi-formal&#10;I've arranged for a surprise dessert&#10;Bring your dancing shoes!" maxlength="300"></textarea>
+                <div class="char-count"><span id="extraCount">0</span>/300</div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary" id="previewBtn">Preview</button>
+                <button type="submit" class="btn btn-primary">Generate Link</button>
+            </div>
+        </form>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <h3>🎉 Your Valentine's Invitation is Ready!</h3>
+            <p style="margin: 15px 0;">Share this link with your special someone:</p>
+            <div class="link-container">
+                <input type="text" class="link-input" id="generatedLink" readonly>
+                <button class="copy-btn" id="copyBtn">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Character counters
+        document.getElementById('recipientName').addEventListener('input', function(e) {
+            document.getElementById('nameCount').textContent = e.target.value.length;
+        });
+
+        document.getElementById('sealInitials').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+            document.getElementById('initialsCount').textContent = e.target.value.length;
+        });
+
+        document.getElementById('personalMessage').addEventListener('input', function(e) {
+            document.getElementById('messageCount').textContent = e.target.value.length;
+        });
+
+        document.getElementById('extraDetails').addEventListener('input', function(e) {
+            document.getElementById('extraCount').textContent = e.target.value.length;
+        });
+
+        // Image preview
+        document.getElementById('profilePicture').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    preview.innerHTML = `<img src="${event.target.result}" alt="Preview">`;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '';
+            }
+        });
+
+        // Preview button
+        document.getElementById('previewBtn').addEventListener('click', function() {
+            const form = document.getElementById('configForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const config = getFormData();
+            const url = generatePreviewURL(config);
+            window.open(url, '_blank');
+        });
+
+        // Form submission
+        document.getElementById('configForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const config = getFormData();
+            const url = generateURL(config);
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            const linkInput = document.getElementById('generatedLink');
+            linkInput.value = url;
+            successMessage.classList.add('show');
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Copy link button
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const linkInput = document.getElementById('generatedLink');
+            linkInput.select();
+            document.execCommand('copy');
+            
+            const btn = document.getElementById('copyBtn');
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+
+        function getFormData() {
+            return {
+                recipientName: document.getElementById('recipientName').value,
+                sealInitials: document.getElementById('sealInitials').value,
+                profilePicture: document.getElementById('imagePreview').querySelector('img')?.src || '',
+                eventDate: document.getElementById('eventDate').value,
+                eventTitle: document.getElementById('eventTitle').value,
+                eventLocation: document.getElementById('eventLocation').value,
+                personalMessage: document.getElementById('personalMessage').value || "I can't wait to spend this special day with you! 💝",
+                extraDetails: document.getElementById('extraDetails').value
+            };
+        }
+
+        function generateURL(config) {
+            const params = new URLSearchParams({
+                name: config.recipientName,
+                initials: config.sealInitials,
+                date: config.eventDate,
+                title: config.eventTitle,
+                location: config.eventLocation,
+                message: config.personalMessage
+            });
+
+            if (config.profilePicture) {
+                params.append('photo', config.profilePicture);
+            }
+
+            if (config.extraDetails) {
+                params.append('extra', config.extraDetails);
+            }
+
+            return `${window.location.origin}${window.location.pathname.replace('valentine-config.html', 'valentine.html')}?${params.toString()}`;
+        }
+
+        function generatePreviewURL(config) {
+            return generateURL(config);
+        }
+    </script>
+</body>
+</html>

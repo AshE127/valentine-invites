@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine? 💝</title>
+    <style>
+        /* ============================================
+           CONFIGURATION - Edit these values
+           ============================================ */
+        :root {
+            --recipient-initials: "ZK";
+            --event-date: "Friday, February 14, 2026 at 7:00 PM";
+            --event-title: "Romantic Valentine's Dinner";
+            --event-location: "Our favorite restaurant";
+            --personal-message: "I can't wait to spend this special day with you! 💝";
+        }
+        /* ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #3d2418 50%, #2c1810 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            perspective: 1000px;
+            position: relative;
+        }
+
+        /* Envelope Styles */
+        .envelope-wrapper {
+            position: relative;
+            width: 450px;
+            height: 300px;
+            cursor: pointer;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+            overflow: hidden;
+        }
+
+        .envelope-wrapper.allow-overflow {
+            overflow: visible;
+        }
+
+        .envelope-wrapper:hover .envelope-seal {
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        /* Main envelope body - rectangular with darker border */
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f4e8d8 0%, #e8dcc8 100%);
+            border: 3px solid #6d5a4a;
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.4);
+        }
+
+        /* Top flap - single triangle pointing down from top */
+        .envelope-flap {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            border-top: 150px solid #e0d5c5;
+            top: 0;
+            left: 0;
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: 3;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+        }
+
+        /* Flap border */
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: -225px;
+            width: 0;
+            height: 0;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            border-top: 150px solid #d4c8b8;
+            transform: scale(1.01);
+        }
+
+        .envelope.opening .envelope-flap {
+            animation: flapOpen 1s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+        }
+
+        @keyframes flapOpen {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(180deg);
+            }
+        }
+
+        /* Top flap - single triangle pointing down from top */
+        .envelope-flap {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            border-top: 150px solid #e0d5c5;
+            top: 0;
+            left: 0;
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: 3;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+        }
+
+        /* Flap border */
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: -225px;
+            width: 0;
+            height: 0;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            border-top: 150px solid #d4c8b8;
+            transform: scale(1.01);
+        }
+
+        .envelope.opening .envelope-flap {
+            animation: flapOpen 1s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+        }
+
+        @keyframes flapOpen {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(180deg);
+            }
+        }
+
+        /* Heart-shaped wax seal - positioned at the tip of the flap */
+        .envelope-seal {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 150px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+
+        /* Heart shape using pseudo-elements */
+        .seal-heart {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .seal-heart::before,
+        .seal-heart::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 50px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #c83a38, #8b1a1a);
+            border-radius: 50px 50px 0 0;
+        }
+
+        .seal-heart::before {
+            left: 50px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .seal-heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .seal-content {
+            position: absolute;
+            top: 42%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .seal-initials {
+            font-family: 'Garamond', 'Georgia', serif;
+            font-size: 30px;
+            font-weight: bold;
+            color: #5a0f0e;
+            text-shadow: 
+                1px 1px 1px rgba(0,0,0,0.6),
+                0 0 2px rgba(0,0,0,0.4);
+            letter-spacing: 2px;
+            margin-top: 0;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .seal-initials::before {
+            content: var(--recipient-initials);
+        }
+
+        .envelope.opening .envelope-seal {
+            animation: sealBreak 0.6s cubic-bezier(0.6, -0.28, 0.74, 0.05) forwards;
+        }
+
+        @keyframes sealBreak {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            30% {
+                transform: translate(-50%, -50%) scale(1.05) rotate(5deg);
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(0.8) rotate(-10deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        .letter {
+            position: absolute;
+            width: 360px;
+            height: 240px;
+            background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+            border-radius: 2px;
+            top: 300px; /* Start completely hidden inside/below envelope before opening */
+            left: 45px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 1;
+            border: 1px solid #e8dcc8;
+            transform: translateY(0);
+            transition: top 0.5s ease-out, box-shadow 0.3s;
+            cursor: default;
+            opacity: 1;
+        }
+
+        /* After envelope opens, show just the top edge peeking through the opening */
+        .envelope.opened .letter {
+            top: 140px; /* Just the top edge visible (~10px showing) */
+            cursor: grab;
+            z-index: 4; /* Above the flap when pulling out */
+        }
+
+        .letter:active {
+            cursor: grabbing;
+        }
+
+        .letter.hoverable:hover {
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .letter h2 {
+            color: #6d1311;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        .heart {
+            font-size: 40px;
+            margin: 15px 0;
+        }
+
+        .letter p {
+            color: #5a4a3a;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        /* Pull instruction */
+        .pull-hint {
+            position: absolute;
+            top: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d4c4a8;
+            font-size: 13px;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.5s 0.3s;
+            pointer-events: none;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
+
+        .envelope.opened .pull-hint {
+            opacity: 1;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d4c4a8;
+            font-size: 14px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: bounce 2s infinite;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            transition: opacity 0.3s;
+        }
+
+        .click-hint.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Question Card */
+        .question-card {
+            display: none;
+            background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+            padding: 60px 50px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            max-width: 550px;
+            animation: fadeIn 0.8s;
+            border: 2px solid #c9b896;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .cat-icon {
+            font-size: 70px;
+            margin-bottom: 25px;
+        }
+
+        .question-card h1 {
+            font-size: 34px;
+            margin-bottom: 40px;
+            color: #2d1810;
+            font-weight: normal;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 16px 45px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn-yes {
+            background: #8b1a1a;
+            color: #f4e8d8;
+            box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3);
+        }
+
+        .btn-yes:hover {
+            background: #6d1311;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139, 26, 26, 0.4);
+        }
+
+        .btn-no {
+            background: #e8dcc8;
+            color: #2d1810;
+            position: absolute;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .shy-note {
+            margin-top: 25px;
+            color: #6d5a4a;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        /* Details Card */
+        .details-card {
+            display: none;
+            background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            max-width: 650px;
+            animation: fadeIn 0.8s;
+            border: 2px solid #c9b896;
+        }
+
+        .details-card.active {
+            display: block;
+        }
+
+        .details-card h1 {
+            color: #8b1a1a;
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 38px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+        }
+
+        .celebration {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 25px;
+        }
+
+        .event-details {
+            background: rgba(232, 220, 200, 0.3);
+            padding: 30px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border: 1px solid #c9b896;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+            font-size: 17px;
+        }
+
+        .detail-item .icon {
+            font-size: 24px;
+            margin-right: 18px;
+            min-width: 30px;
+        }
+
+        .detail-item .label {
+            font-weight: bold;
+            color: #2d1810;
+            margin-right: 10px;
+            font-family: 'Georgia', serif;
+        }
+
+        .detail-item .value {
+            color: #5a4a3a;
+        }
+
+        .save-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .save-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: normal;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .save-btn.google {
+            background: #4285f4;
+            color: white;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+
+        .save-btn.apple {
+            background: #2d1810;
+            color: #f4e8d8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
+
+        .love-message {
+            text-align: center;
+            margin-top: 30px;
+            color: #8b1a1a;
+            font-size: 18px;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+        }
+
+        .love-message::before {
+            content: var(--personal-message);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Envelope -->
+        <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope" id="envelope">
+                <div class="envelope-back"></div>
+                <div class="envelope-flap"></div>
+                <div class="envelope-seal">
+                    <div class="seal-heart">
+                        <div class="seal-content">
+                            <div class="seal-initials"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter" id="letter">
+                    <h2>A Special Invitation</h2>
+                    <div class="heart">❤️</div>
+                    <p>Something wonderful awaits...</p>
+                </div>
+                <div class="pull-hint">Drag the card upward to open ↑</div>
+            </div>
+            <div class="click-hint" id="clickHint">Click to open the envelope</div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card" id="questionCard">
+            <div class="cat-icon">🐱</div>
+            <h1>Will you be my Valentine?</h1>
+            <div class="buttons">
+                <button class="btn btn-yes" id="yesBtn">Yes! 💕</button>
+                <button class="btn btn-no" id="noBtn">No</button>
+            </div>
+            <div class="shy-note">*"No" seems a bit shy 💙*</div>
+        </div>
+
+        <!-- Details Card -->
+        <div class="details-card" id="detailsCard">
+            <div class="celebration">🎉 💖 🎉</div>
+            <h1>Our Valentine's Plans</h1>
+            
+            <div class="event-details">
+                <div class="detail-item">
+                    <div class="icon">📅</div>
+                    <div>
+                        <span class="label">When:</span>
+                        <span class="value" id="eventDate"></span>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="icon">🍽️</div>
+                    <div>
+                        <span class="label">What:</span>
+                        <span class="value" id="eventTitle"></span>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="icon">📍</div>
+                    <div>
+                        <span class="label">Where:</span>
+                        <span class="value" id="eventLocation"></span>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="icon">👫</div>
+                    <div>
+                        <span class="label">Who:</span>
+                        <span class="value">Just you and me ❤️</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="save-buttons">
+                <button class="save-btn google" id="googleBtn">
+                    <span>📅</span>
+                    <span>Add to Google Calendar</span>
+                </button>
+                <button class="save-btn apple" id="appleBtn">
+                    <span>🍎</span>
+                    <span>Add to Apple Calendar</span>
+                </button>
+            </div>
+
+            <div class="love-message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get configuration values from CSS variables
+        const rootStyles = getComputedStyle(document.documentElement);
+        const eventDateText = rootStyles.getPropertyValue('--event-date').trim().replace(/"/g, '');
+        const eventTitleText = rootStyles.getPropertyValue('--event-title').trim().replace(/"/g, '');
+        const eventLocationText = rootStyles.getPropertyValue('--event-location').trim().replace(/"/g, '');
+
+        // Populate event details
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('eventDate').textContent = eventDateText;
+            document.getElementById('eventTitle').textContent = eventTitleText;
+            document.getElementById('eventLocation').textContent = eventLocationText;
+        });
+
+        const envelope = document.getElementById('envelope');
+        const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const questionCard = document.getElementById('questionCard');
+        const detailsCard = document.getElementById('detailsCard');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const googleBtn = document.getElementById('googleBtn');
+        const appleBtn = document.getElementById('appleBtn');
+        const letter = document.getElementById('letter');
+        const clickHint = document.getElementById('clickHint');
+
+        let envelopeOpened = false;
+        let isDragging = false;
+        let startY = 0;
+        let currentY = 0;
+        let letterPulledOut = false;
+
+        // Open envelope (seal breaks and flap opens)
+        envelopeWrapper.addEventListener('click', function(e) {
+            if (envelopeOpened || e.target === letter || letter.contains(e.target)) return;
+            
+            envelope.classList.add('opening');
+            envelopeOpened = true;
+            clickHint.classList.add('hidden');
+            
+            // After flap fully opens (1s animation), show card and allow dragging
+            setTimeout(() => {
+                envelope.classList.remove('opening');
+                envelope.classList.add('opened');
+                letter.classList.add('hoverable');
+                envelopeWrapper.classList.add('allow-overflow'); // Allow card to be pulled out
+            }, 1000); // Wait for full flap animation to complete
+        });
+
+        // Mouse drag on letter (pull out the card)
+        letter.addEventListener('mousedown', function(e) {
+            if (!envelopeOpened || letterPulledOut) return;
+            
+            // Only allow dragging after envelope is fully opened
+            if (!envelope.classList.contains('opened')) return;
+            
+            isDragging = true;
+            startY = e.clientY;
+            currentY = 0;
+            letter.style.transition = 'none';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            
+            const deltaY = e.clientY - startY;
+            
+            // Allow upward dragging (negative values) to pull the card UP and OUT
+            if (deltaY < 0) {
+                currentY = Math.max(deltaY, -200); // Max pull out distance
+                const newTop = 140 + currentY; // Start from peeking position (140px)
+                letter.style.top = `${newTop}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            letter.style.transition = 'top 0.3s ease-out';
+            
+            // If pulled out more than 100px upward, consider it fully pulled out
+            if (currentY < -100) {
+                letterPulledOut = true;
+                letter.style.top = '-60px'; // Fully pulled out above envelope
+                
+                // Transition to question card
+                setTimeout(() => {
+                    envelopeWrapper.style.opacity = '0';
+                    envelopeWrapper.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        envelopeWrapper.style.display = 'none';
+                        questionCard.classList.add('active');
+                    }, 500);
+                }, 800);
+            } else {
+                // Snap back if not pulled enough
+                letter.style.top = '140px';
+                currentY = 0;
+            }
+        });
+
+        // Touch support for mobile
+        letter.addEventListener('touchstart', function(e) {
+            if (!envelopeOpened || letterPulledOut) return;
+            
+            isDragging = true;
+            startY = e.touches[0].clientY;
+            currentY = 0;
+            letter.style.transition = 'none';
+            e.preventDefault();
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            
+            const deltaY = e.touches[0].clientY - startY;
+            
+            if (deltaY < 0) {
+                currentY = Math.max(deltaY, -200);
+                const newTop = 140 + currentY;
+                letter.style.top = `${newTop}px`;
+            }
+        });
+
+        document.addEventListener('touchend', function() {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            letter.style.transition = 'top 0.3s ease-out';
+            
+            if (currentY < -100) {
+                letterPulledOut = true;
+                letter.style.top = '-60px';
+                
+                setTimeout(() => {
+                    envelopeWrapper.style.opacity = '0';
+                    envelopeWrapper.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        envelopeWrapper.style.display = 'none';
+                        questionCard.classList.add('active');
+                    }, 500);
+                }, 800);
+            } else {
+                letter.style.top = '140px';
+                currentY = 0;
+            }
+        });
+
+        // Make "No" button run away from mouse
+        questionCard.addEventListener('mousemove', function(e) {
+            const noRect = noBtn.getBoundingClientRect();
+            const cardRect = questionCard.getBoundingClientRect();
+            
+            const noCenterX = noRect.left + noRect.width / 2;
+            const noCenterY = noRect.top + noRect.height / 2;
+            
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - noCenterX, 2) + 
+                Math.pow(e.clientY - noCenterY, 2)
+            );
+            
+            if (distance < 120) {
+                const angle = Math.atan2(noCenterY - e.clientY, noCenterX - e.clientX);
+                const moveDistance = 120;
+                
+                let newX = Math.cos(angle) * moveDistance;
+                let newY = Math.sin(angle) * moveDistance;
+                
+                // Keep button within card bounds
+                const maxX = cardRect.width - noRect.width - 40;
+                const maxY = cardRect.height - noRect.height - 40;
+                
+                newX = Math.max(-maxX/2, Math.min(maxX/2, newX));
+                newY = Math.max(-maxY/2, Math.min(maxY/2, newY));
+                
+                noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+            }
+        });
+
+        // Yes button click
+        yesBtn.addEventListener('click', function() {
+            questionCard.classList.remove('active');
+            detailsCard.classList.add('active');
+        });
+
+        // Calendar event details
+        const eventDetails = {
+            title: eventTitleText,
+            description: "A special romantic dinner to celebrate our love! ❤️",
+            location: eventLocationText,
+            start: "20260214T190000",
+            end: "20260214T220000"
+        };
+
+        // Google Calendar
+        googleBtn.addEventListener('click', function() {
+            const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${eventDetails.start}/${eventDetails.end}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
+            window.open(googleUrl, '_blank');
+        });
+
+        // Apple Calendar (iCal format)
+        appleBtn.addEventListener('click', function() {
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Valentine's Day//EN
+BEGIN:VEVENT
+DTSTART:${eventDetails.start}
+DTEND:${eventDetails.end}
+SUMMARY:${eventDetails.title}
+DESCRIPTION:${eventDetails.description}
+LOCATION:${eventDetails.location}
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Valentine's Day Dinner Tomorrow!
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'valentines-dinner.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
