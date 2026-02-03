@@ -473,6 +473,9 @@
                     <button type="submit" style="background: #8b1a1a; color: #f4e8d8; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold;">Go →</button>
                 </form>
                 <p id="promoError" style="color: #dc3545; margin-top: 10px; font-size: 14px; display: none;"></p>
+                <p style="margin-top: 15px; font-size: 13px; color: #6d5a4a;">
+                    Or <a href="https://ashe127.github.io/valentine-invites/valentine-config.html?code=TESTCODE" style="color: #8b1a1a; text-decoration: underline;">click here</a> and replace TESTCODE in the URL with your code
+                </p>
             </div>
         </div>
     </section>
@@ -484,41 +487,35 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Handle promo code form submission
-        document.addEventListener('DOMContentLoaded', function() {
+        // Handle promo code form submission - simplified version
+        window.addEventListener('load', function() {
             const promoForm = document.getElementById('promoForm');
-            const promoInput = document.getElementById('promoInput');
-            const promoError = document.getElementById('promoError');
-            
-            console.log('Promo form found:', promoForm);
             
             if (promoForm) {
-                promoForm.addEventListener('submit', function(e) {
+                promoForm.onsubmit = function(e) {
                     e.preventDefault();
-                    const code = promoInput.value.trim().toUpperCase();
+                    e.stopPropagation();
                     
-                    console.log('Code entered:', code);
+                    const promoInput = document.getElementById('promoInput');
+                    const promoError = document.getElementById('promoError');
+                    const code = promoInput.value.trim().toUpperCase();
                     
                     if (!code) {
                         promoError.textContent = 'Please enter a promo code';
                         promoError.style.display = 'block';
-                        return;
+                        return false;
                     }
                     
-                    if (code.match(/^LOVE0\d+$/i)) {
-                        console.log('Code valid, redirecting...');
-                        // Try both methods
-                        const url = `https://ashe127.github.io/valentine-invites/valentine-config.html?code=${code}`;
-                        alert('Redirecting to: ' + url);
-                        window.location.href = url;
+                    if (code.match(/^LOVE0\d+$/)) {
+                        const url = 'https://ashe127.github.io/valentine-invites/valentine-config.html?code=' + code;
+                        window.location.replace(url);
                     } else {
-                        console.log('Code invalid:', code);
                         promoError.textContent = 'Invalid code format. Should be like: LOVE01';
                         promoError.style.display = 'block';
                     }
-                });
-            } else {
-                console.log('Promo form NOT found!');
+                    
+                    return false;
+                };
             }
         });
 
