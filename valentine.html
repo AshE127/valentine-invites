@@ -376,7 +376,7 @@
         }
 
         .cat-icon {
-            font-size: 70px;
+            font-size: 80px;
             margin-bottom: 25px;
         }
 
@@ -603,7 +603,7 @@
 
         <!-- Question Card -->
         <div class="question-card" id="questionCard">
-            <div class="cat-icon">🐱</div>
+            <div class="cat-icon">💘</div>
             <h1>Will you be my Valentine?</h1>
             <div class="buttons">
                 <button class="btn btn-yes" id="yesBtn">Yes! 💕</button>
@@ -675,7 +675,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const recipientName = urlParams.get('name') || '';
         const sealInitials = urlParams.get('initials') || 'ZK';
-        const profilePhoto = urlParams.get('photo') || '';
         const eventDate = urlParams.get('date') || 'Friday, February 14, 2026 at 7:00 PM';
         const eventTitle = urlParams.get('title') || 'Romantic Valentine\'s Dinner';
         const eventLocation = urlParams.get('location') || 'Our favorite restaurant';
@@ -705,12 +704,6 @@
             if (recipientName) {
                 const questionH1 = document.querySelector('.question-card h1');
                 questionH1.textContent = `${recipientName}, will you be my Valentine?`;
-            }
-            
-            // Update cat icon with profile photo if provided
-            if (profilePhoto) {
-                const catIcon = document.querySelector('.cat-icon');
-                catIcon.innerHTML = `<img src="${profilePhoto}" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #e8dcc8;">`;
             }
 
             // Show extra details if provided
