@@ -286,17 +286,6 @@
                 <div class="char-count"><span id="initialsCount">0</span>/3</div>
             </div>
 
-            <!-- Profile Picture -->
-            <div class="form-group">
-                <label for="profilePicture">
-                    Profile Picture (Optional)
-                    <span class="label-description">Upload a photo to replace the cat emoji on the question page</span>
-                </label>
-                <input type="file" id="profilePicture" accept="image/*">
-                <div class="image-preview" id="imagePreview"></div>
-                <div class="preview-note">Recommended: Square image, at least 200x200px</div>
-            </div>
-
             <div class="divider"></div>
 
             <!-- Event Details -->
@@ -374,22 +363,6 @@
             document.getElementById('extraCount').textContent = e.target.value.length;
         });
 
-        // Image preview
-        document.getElementById('profilePicture').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const preview = document.getElementById('imagePreview');
-            
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    preview.innerHTML = `<img src="${event.target.result}" alt="Preview">`;
-                }
-                reader.readAsDataURL(file);
-            } else {
-                preview.innerHTML = '';
-            }
-        });
-
         // Preview button
         document.getElementById('previewBtn').addEventListener('click', function() {
             const form = document.getElementById('configForm');
@@ -440,7 +413,6 @@
             return {
                 recipientName: document.getElementById('recipientName').value,
                 sealInitials: document.getElementById('sealInitials').value,
-                profilePicture: document.getElementById('imagePreview').querySelector('img')?.src || '',
                 eventDate: document.getElementById('eventDate').value,
                 eventTitle: document.getElementById('eventTitle').value,
                 eventLocation: document.getElementById('eventLocation').value,
@@ -458,10 +430,6 @@
                 location: config.eventLocation,
                 message: config.personalMessage
             });
-
-            if (config.profilePicture) {
-                params.append('photo', config.profilePicture);
-            }
 
             if (config.extraDetails) {
                 params.append('extra', config.extraDetails);
