@@ -169,6 +169,7 @@
             font-weight: bold;
             margin: 10px 0;
             display: block;
+            word-break: break-all;
         }
 
         .payment-note {
@@ -231,6 +232,7 @@
             padding: 20px;
             background: rgba(232, 220, 200, 0.2);
             border-radius: 5px;
+            color: #2d1810;
         }
 
         .already-purchased a {
@@ -299,8 +301,8 @@
             
             <!-- Step 1 -->
             <div style="margin-bottom: 30px; text-align: center;">
-                <div style="background: #2c1810; padding: 40px; border-radius: 5px; margin-bottom: 15px;">
-                    <div style="width: 300px; height: 200px; margin: 0 auto; background: linear-gradient(135deg, #f4e8d8 0%, #e8dcc8 100%); border: 3px solid #6d5a4a; border-radius: 5px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div style="background: #2c1810; padding: 40px; border-radius: 5px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center;">
+                    <div style="width: 300px; height: 200px; background: linear-gradient(135deg, #f4e8d8 0%, #e8dcc8 100%); border: 3px solid #6d5a4a; border-radius: 5px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                         <!-- Flap -->
                         <div style="position: absolute; width: 0; height: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 100px solid #e0d5c5; top: 0; left: 0;"></div>
                         <!-- Seal -->
@@ -441,7 +443,7 @@
 
                 <div class="payment-method">
                     <strong>Zelle:</strong>
-                    <span class="handle">ershadahsen@gmail.com</span>
+                    <span class="handle"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2a7b0b1aaa3a6a3aab1a7ac82a5afa3abaeeca1adaf">[email&#160;protected]</a></span>
                 </div>
 
                 <div class="payment-note">
@@ -461,7 +463,8 @@
             <button class="cta-button" onclick="alert('Send $5 to the Venmo or Zelle above and include your email in the note! You\'ll receive your promo code within 24 hours.')">Purchase Now - $5</button>
 
             <div class="already-purchased">
-                Already purchased? <a href="javascript:void(0)" onclick="showCodeEntry()">Enter your promo code here</a>
+                Already purchased? <br>
+                <a href="javascript:void(0)" onclick="showCodeEntry()">Enter your promo code here</a>
             </div>
         </div>
     </section>
@@ -472,13 +475,13 @@
         <p style="margin-top: 10px; font-size: 12px;">Perfect for Valentine's Day, anniversaries, date proposals, and special occasions</p>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function showCodeEntry() {
-            const code = prompt("Enter your promo code (format: LOVE0123):");
+            const code = prompt("Enter your promo code:");
             if (code && code.match(/^LOVE0\d+$/i)) {
                 window.location.href = `valentine-config.html?code=${code.toUpperCase()}`;
             } else if (code) {
-                alert("Invalid promo code format. It should look like: LOVE0123");
+                alert("Invalid promo code format. Please check your code and try again.");
             }
         }
 
@@ -486,12 +489,4 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                const target = document
