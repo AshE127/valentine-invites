@@ -675,11 +675,14 @@
         const urlParams = new URLSearchParams(window.location.search);
         const recipientName = urlParams.get('name') || '';
         const sealInitials = urlParams.get('initials') || 'ZK';
+        const customGif = urlParams.get('gif') || '';
         const eventDate = urlParams.get('date') || 'Friday, February 14, 2026 at 7:00 PM';
         const eventTitle = urlParams.get('title') || 'Romantic Valentine\'s Dinner';
         const eventLocation = urlParams.get('location') || 'Our favorite restaurant';
         const personalMessage = urlParams.get('message') || "I can't wait to spend this special day with you! 💝";
         const extraDetails = urlParams.get('extra') || '';
+        const calendarStart = urlParams.get('start') || '20260214T190000';
+        const calendarEnd = urlParams.get('end') || '20260214T220000';
 
         // Apply configuration to CSS variables
         document.documentElement.style.setProperty('--recipient-initials', `"${sealInitials}"`);
@@ -704,6 +707,12 @@
             if (recipientName) {
                 const questionH1 = document.querySelector('.question-card h1');
                 questionH1.textContent = `${recipientName}, will you be my Valentine?`;
+            }
+
+            // Replace cupid heart with custom GIF if provided
+            if (customGif) {
+                const catIcon = document.querySelector('.cat-icon');
+                catIcon.innerHTML = `<img src="${customGif}" alt="Custom GIF" style="max-width: 120px; max-height: 120px; border-radius: 10px; object-fit: contain;">`;
             }
 
             // Show extra details if provided
@@ -892,8 +901,8 @@
             title: eventTitleText,
             description: "A special romantic dinner to celebrate our love! ❤️",
             location: eventLocationText,
-            start: "20260214T190000",
-            end: "20260214T220000"
+            start: calendarStart,
+            end: calendarEnd
         };
 
         // Google Calendar
