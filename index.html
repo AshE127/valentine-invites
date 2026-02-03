@@ -467,7 +467,7 @@
 
             <div class="already-purchased">
                 <p style="margin-bottom: 15px;">Already purchased?</p>
-                <button onclick="showCodeEntry()" style="background: #8b1a1a; color: #f4e8d8; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold;">Enter Your Promo Code</button>
+                <button id="promoCodeBtn" style="background: #8b1a1a; color: #f4e8d8; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold; -webkit-tap-highlight-color: transparent;">Enter Your Promo Code</button>
             </div>
         </div>
     </section>
@@ -487,5 +487,18 @@
                 alert("Invalid promo code format. Please check your code and try again.");
             }
         }
+
+        // Add event listener for promo code button (mobile compatible)
+        document.addEventListener('DOMContentLoaded', function() {
+            const promoBtn = document.getElementById('promoCodeBtn');
+            if (promoBtn) {
+                // Use both click and touchstart for maximum compatibility
+                promoBtn.addEventListener('click', showCodeEntry);
+                promoBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    showCodeEntry();
+                });
+            }
+        });
 
         // Smoo
