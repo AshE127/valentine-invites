@@ -490,10 +490,14 @@
             const promoInput = document.getElementById('promoInput');
             const promoError = document.getElementById('promoError');
             
+            console.log('Promo form found:', promoForm);
+            
             if (promoForm) {
                 promoForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     const code = promoInput.value.trim().toUpperCase();
+                    
+                    console.log('Code entered:', code);
                     
                     if (!code) {
                         promoError.textContent = 'Please enter a promo code';
@@ -502,12 +506,19 @@
                     }
                     
                     if (code.match(/^LOVE0\d+$/i)) {
-                        window.location.href = `valentine-config.html?code=${code}`;
+                        console.log('Code valid, redirecting...');
+                        // Try both methods
+                        const url = `https://ashe127.github.io/valentine-invites/valentine-config.html?code=${code}`;
+                        alert('Redirecting to: ' + url);
+                        window.location.href = url;
                     } else {
+                        console.log('Code invalid:', code);
                         promoError.textContent = 'Invalid code format. Should be like: LOVE01';
                         promoError.style.display = 'block';
                     }
                 });
+            } else {
+                console.log('Promo form NOT found!');
             }
         });
 
