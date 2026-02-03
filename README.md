@@ -7,7 +7,7 @@ Create beautiful, personalized Valentine's Day invitations with interactive enve
 - 🎨 **Personalized Wax Seal** - Custom initials on a heart-shaped seal
 - 💌 **Interactive Envelope Animation** - Click to break the seal and open the flap
 - 🖱️ **Drag-to-Open Card** - Pull the invitation card out of the envelope
-- 📸 **Profile Photo Support** - Upload a photo to personalize the question page
+- 💘 **Beautiful Cupid Icon** - Romantic heart with arrow on the question page
 - 📅 **Calendar Integration** - One-click add to Google Calendar or Apple Calendar
 - 🎭 **Playful "No" Button** - The "No" button runs away from the mouse (they have no choice but to say yes!)
 - ✍️ **Custom Event Details** - Fully customizable date, time, location, and personal message
@@ -20,7 +20,6 @@ Create beautiful, personalized Valentine's Day invitations with interactive enve
 2. Fill in all the customization options:
    - Recipient's name
    - Wax seal initials (2-3 letters)
-   - Optional profile picture
    - Event details (date, location, etc.)
    - Personal message
 3. Click **"Generate Link"**
@@ -45,7 +44,6 @@ Create beautiful, personalized Valentine's Day invitations with interactive enve
 
 - **Recipient Name** - Appears in "Will you be my Valentine, [Name]?"
 - **Seal Initials** - 2-3 letters on the wax seal
-- **Profile Photo** - Replace the default emoji with a personal photo
 - **Event Date** - When is your Valentine's date?
 - **Event Title** - What are you planning?
 - **Event Location** - Where will it be?
