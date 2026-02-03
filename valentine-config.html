@@ -314,10 +314,14 @@
             <div class="form-group">
                 <label for="customGif">
                     Custom GIF (Optional)
-                    <span class="label-description">Add a Tenor/Giphy link to replace the cupid heart on the question page</span>
+                    <span class="label-description">Add a direct GIF link to replace the cupid heart on the question page</span>
                 </label>
-                <input type="url" id="customGif" placeholder="e.g., https://media.tenor.com/xyz.gif">
-                <div class="preview-note">Leave blank to use the default cupid heart 💘</div>
+                <input type="url" id="customGif" placeholder="Right-click GIF → Copy Image Address → Paste here">
+                <div class="preview-note">
+                    <strong>⚠️ IMPORTANT:</strong> URL must end with <strong>.gif</strong><br>
+                    <strong>✅ Test the preview below before generating your link!</strong><br>
+                    If preview doesn't work or link is wrong, the default cupid heart 💘 will show instead.
+                </div>
                 <div class="image-preview" id="gifPreview"></div>
             </div>
 
@@ -409,16 +413,43 @@
             document.getElementById('extraCount').textContent = e.target.value.length;
         });
 
-        // GIF URL preview
+        // GIF URL preview and validation
         document.getElementById('customGif').addEventListener('input', function(e) {
-            const gifUrl = e.target.value.trim();
+            let gifUrl = e.target.value.trim();
             const preview = document.getElementById('gifPreview');
             
-            if (gifUrl && (gifUrl.includes('.gif') || gifUrl.includes('tenor.com') || gifUrl.includes('giphy.com'))) {
-                preview.innerHTML = `<img src="${gifUrl}" alt="GIF Preview" style="max-width: 150px; max-height: 150px; border-radius: 10px; border: 3px solid #e8dcc8; margin-top: 10px;">`;
-            } else {
+            if (!gifUrl) {
                 preview.innerHTML = '';
+                return;
             }
+            
+            // Check if URL ends with .gif
+            if (!gifUrl.toLowerCase().endsWith('.gif')) {
+                preview.innerHTML = `
+                    <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 5px; margin-top: 10px; color: #856404;">
+                        <strong>❌ Invalid URL</strong><br>
+                        URL must end with <strong>.gif</strong><br>
+                        <br>
+                        <strong>How to fix:</strong><br>
+                        1. Go to the GIF on Tenor/Giphy<br>
+                        2. <strong>Right-click</strong> on the GIF<br>
+                        3. Select <strong>"Copy Image Address"</strong><br>
+                        4. Paste here (should end with .gif)
+                    </div>
+                `;
+                return;
+            }
+            
+            // Try to load the GIF
+            preview.innerHTML = `
+                <div style="margin-top: 15px; text-align: center;">
+                    <div style="color: #6d5a4a; font-size: 14px; margin-bottom: 10px;">📡 Testing GIF...</div>
+                    <img src="${gifUrl}" alt="GIF Preview" 
+                         style="max-width: 150px; max-height: 150px; border-radius: 10px; border: 3px solid #e8dcc8;" 
+                         onload="this.previousElementSibling.innerHTML='<span style=color:#28a745;font-weight:bold;>✅ GIF works! Preview:</span>'"
+                         onerror="this.parentElement.innerHTML='<div style=background:#f8d7da;border:2px solid #dc3545;padding:15px;border-radius:5px;color:#721c24;><strong>❌ GIF Failed to Load</strong><br>This GIF will NOT work in your invitation.<br><br><strong>What to do:</strong><br>1. Try a different GIF<br>2. Make sure URL ends with .gif<br>3. Right-click → Copy Image Address<br><br>If this doesn\'t work, leave blank and the cupid heart 💘 will show instead.</div>'">
+                </div>
+            `;
         });
 
         // Preview button
@@ -437,6 +468,12 @@
         // Form submission
         document.getElementById('configForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Validate GIF URL if provided
+            const gifUrl = document.getElementById('customGif').value.trim();
+            if (gifUrl && !gifUrl.toLowerCase().endsWith('.gif')) {
+                alert('⚠️ Warning: Your GIF URL does not end with .gif\n\nThe GIF may not work in your invitation. The default cupid heart will show instead.\n\nTo fix: Right-click the GIF → Copy Image Address');
+            }
             
             const config = getFormData();
             const url = generateURL(config);
