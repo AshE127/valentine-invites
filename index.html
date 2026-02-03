@@ -466,8 +466,13 @@
             <button class="cta-button" onclick="alert('Send $5 to the Venmo or Cash App above and include your email in the note! You\'ll receive your promo code within 24 hours.')">Purchase Now - $5</button>
 
             <div class="already-purchased">
-                <p style="margin-bottom: 15px;">Already purchased?</p>
-                <button id="promoCodeBtn" style="background: #8b1a1a; color: #f4e8d8; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold; -webkit-tap-highlight-color: transparent;">Enter Your Promo Code</button>
+                <p style="margin-bottom: 15px; font-weight: bold;">Already purchased?</p>
+                <p style="margin-bottom: 10px; font-size: 14px;">Enter your promo code:</p>
+                <form id="promoForm" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                    <input type="text" id="promoInput" placeholder="LOVE0123" style="padding: 12px 20px; border: 2px solid #8b1a1a; border-radius: 5px; font-size: 16px; text-transform: uppercase; min-width: 150px;" maxlength="10">
+                    <button type="submit" style="background: #8b1a1a; color: #f4e8d8; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold;">Go →</button>
+                </form>
+                <p id="promoError" style="color: #dc3545; margin-top: 10px; font-size: 14px; display: none;"></p>
             </div>
         </div>
     </section>
@@ -479,24 +484,29 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        function showCodeEntry() {
-            const code = prompt("Enter your promo code:");
-            if (code && code.match(/^LOVE0\d+$/i)) {
-                window.location.href = `valentine-config.html?code=${code.toUpperCase()}`;
-            } else if (code) {
-                alert("Invalid promo code format. Please check your code and try again.");
-            }
-        }
-
-        // Add event listener for promo code button (mobile compatible)
+        // Handle promo code form submission
         document.addEventListener('DOMContentLoaded', function() {
-            const promoBtn = document.getElementById('promoCodeBtn');
-            if (promoBtn) {
-                // Use both click and touchstart for maximum compatibility
-                promoBtn.addEventListener('click', showCodeEntry);
-                promoBtn.addEventListener('touchstart', function(e) {
+            const promoForm = document.getElementById('promoForm');
+            const promoInput = document.getElementById('promoInput');
+            const promoError = document.getElementById('promoError');
+            
+            if (promoForm) {
+                promoForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    showCodeEntry();
+                    const code = promoInput.value.trim().toUpperCase();
+                    
+                    if (!code) {
+                        promoError.textContent = 'Please enter a promo code';
+                        promoError.style.display = 'block';
+                        return;
+                    }
+                    
+                    if (code.match(/^LOVE0\d+$/i)) {
+                        window.location.href = `valentine-config.html?code=${code}`;
+                    } else {
+                        promoError.textContent = 'Invalid code format. Should be like: LOVE01';
+                        promoError.style.display = 'block';
+                    }
                 });
             }
         });
