@@ -36,6 +36,10 @@
         .container {
             perspective: 1000px;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         /* Envelope Styles */
@@ -592,8 +596,14 @@
             }
 
             .envelope-wrapper {
-                width: 350px;
-                height: 233px;
+                width: 90%;
+                max-width: 350px;
+                height: auto;
+                aspect-ratio: 3 / 2;
+            }
+            
+            .container {
+                padding: 20px;
             }
         }
     </style>
