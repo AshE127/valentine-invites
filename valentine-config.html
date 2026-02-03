@@ -261,9 +261,33 @@
     </style>
 </head>
 <body>
+    <script>
+        // Check for promo code on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            
+            // Check if code matches LOVE0 followed by any digits
+            const isValidCode = code && /^LOVE0\d+$/i.test(code);
+            
+            if (!isValidCode) {
+                // PRODUCTION MODE: Redirect to landing page
+                window.location.href = 'index.html';
+            } else {
+                // Display the promo code
+                document.getElementById('promoCodeDisplay').textContent = code.toUpperCase();
+            }
+        });
+    </script>
+
     <div class="config-container">
         <h1>Create Your Valentine's Invitation 💝</h1>
         <p class="subtitle">Customize your romantic invitation in just a few steps</p>
+
+        <div id="welcomeMessage" style="background: #d4edda; border: 2px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 30px; text-align: center;">
+            <strong>✅ Access Granted!</strong><br>
+            Your promo code: <strong id="promoCodeDisplay"></strong>
+        </div>
 
         <form id="configForm">
             <!-- Recipient Name -->
@@ -286,6 +310,17 @@
                 <div class="char-count"><span id="initialsCount">0</span>/3</div>
             </div>
 
+            <!-- Custom GIF (Optional) -->
+            <div class="form-group">
+                <label for="customGif">
+                    Custom GIF (Optional)
+                    <span class="label-description">Add a Tenor/Giphy link to replace the cupid heart on the question page</span>
+                </label>
+                <input type="url" id="customGif" placeholder="e.g., https://media.tenor.com/xyz.gif">
+                <div class="preview-note">Leave blank to use the default cupid heart 💘</div>
+                <div class="image-preview" id="gifPreview"></div>
+            </div>
+
             <div class="divider"></div>
 
             <!-- Event Details -->
@@ -293,8 +328,19 @@
                 <h3>Valentine's Date Details</h3>
 
                 <div class="form-group">
-                    <label for="eventDate">When</label>
-                    <input type="text" id="eventDate" placeholder="e.g., Friday, February 14, 2026 at 7:00 PM" required>
+                    <label for="eventDate">Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventTime">Time</label>
+                    <input type="time" id="eventTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventDuration">Duration (hours)</label>
+                    <input type="number" id="eventDuration" min="1" max="8" value="3" required>
+                    <div class="label-description" style="margin-top: 5px;">How long will the event last?</div>
                 </div>
 
                 <div class="form-group">
@@ -363,6 +409,18 @@
             document.getElementById('extraCount').textContent = e.target.value.length;
         });
 
+        // GIF URL preview
+        document.getElementById('customGif').addEventListener('input', function(e) {
+            const gifUrl = e.target.value.trim();
+            const preview = document.getElementById('gifPreview');
+            
+            if (gifUrl && (gifUrl.includes('.gif') || gifUrl.includes('tenor.com') || gifUrl.includes('giphy.com'))) {
+                preview.innerHTML = `<img src="${gifUrl}" alt="GIF Preview" style="max-width: 150px; max-height: 150px; border-radius: 10px; border: 3px solid #e8dcc8; margin-top: 10px;">`;
+            } else {
+                preview.innerHTML = '';
+            }
+        });
+
         // Preview button
         document.getElementById('previewBtn').addEventListener('click', function() {
             const form = document.getElementById('configForm');
@@ -410,14 +468,55 @@
         });
 
         function getFormData() {
+            const dateInput = document.getElementById('eventDate').value;
+            const timeInput = document.getElementById('eventTime').value;
+            const duration = parseInt(document.getElementById('eventDuration').value);
+            
+            // Parse the date and time
+            const date = new Date(dateInput + 'T' + timeInput);
+            
+            // Format for display: "Friday, February 14, 2026 at 7:00 PM"
+            const displayDate = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            const displayTime = date.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit', 
+                hour12: true 
+            });
+            const displayDateTime = `${displayDate} at ${displayTime}`;
+            
+            // Format for calendar (iCal format: YYYYMMDDTHHMMSS)
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const calendarStart = `${year}${month}${day}T${hours}${minutes}00`;
+            
+            // Calculate end time
+            const endDate = new Date(date.getTime() + (duration * 60 * 60 * 1000));
+            const endYear = endDate.getFullYear();
+            const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
+            const endDay = String(endDate.getDate()).padStart(2, '0');
+            const endHours = String(endDate.getHours()).padStart(2, '0');
+            const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+            const calendarEnd = `${endYear}${endMonth}${endDay}T${endHours}${endMinutes}00`;
+            
             return {
                 recipientName: document.getElementById('recipientName').value,
                 sealInitials: document.getElementById('sealInitials').value,
-                eventDate: document.getElementById('eventDate').value,
+                customGif: document.getElementById('customGif').value.trim(),
+                eventDate: displayDateTime,
                 eventTitle: document.getElementById('eventTitle').value,
                 eventLocation: document.getElementById('eventLocation').value,
                 personalMessage: document.getElementById('personalMessage').value || "I can't wait to spend this special day with you! 💝",
-                extraDetails: document.getElementById('extraDetails').value
+                extraDetails: document.getElementById('extraDetails').value,
+                calendarStart: calendarStart,
+                calendarEnd: calendarEnd
             };
         }
 
@@ -428,8 +527,14 @@
                 date: config.eventDate,
                 title: config.eventTitle,
                 location: config.eventLocation,
-                message: config.personalMessage
+                message: config.personalMessage,
+                start: config.calendarStart,
+                end: config.calendarEnd
             });
+
+            if (config.customGif) {
+                params.append('gif', config.customGif);
+            }
 
             if (config.extraDetails) {
                 params.append('extra', config.extraDetails);
