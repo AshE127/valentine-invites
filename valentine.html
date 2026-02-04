@@ -30,7 +30,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         .container {
@@ -218,7 +218,7 @@
             height: 240px;
             background: linear-gradient(to bottom, #fffef9, #f8f6f0);
             border-radius: 2px;
-            top: 300px; /* Start completely hidden inside/below envelope before opening */
+            top: 300px;
             left: 45px;
             padding: 35px;
             text-align: center;
@@ -231,11 +231,10 @@
             opacity: 1;
         }
 
-        /* After envelope opens, show just the top edge peeking through the opening */
         .envelope.opened .letter {
-            top: 140px; /* Just the top edge visible (~10px showing) */
+            top: 140px;
             cursor: grab;
-            z-index: 4; /* Above the flap when pulling out */
+            z-index: 4;
         }
 
         .letter:active {
@@ -265,7 +264,6 @@
             font-size: 16px;
         }
 
-        /* Pull instruction */
         .pull-hint {
             position: absolute;
             top: 160px;
@@ -321,8 +319,6 @@
             max-width: 550px;
             animation: fadeIn 0.8s;
             border: 2px solid #c9b896;
-            max-height: 85vh;
-            overflow-y: auto;
         }
 
         @keyframes fadeIn {
@@ -403,8 +399,6 @@
             max-width: 650px;
             animation: fadeIn 0.8s;
             border: 2px solid #c9b896;
-            max-height: 85vh;
-            overflow-y: auto;
         }
 
         .details-card.active {
@@ -425,6 +419,18 @@
             text-align: center;
             font-size: 50px;
             margin-bottom: 25px;
+        }
+
+        .love-message {
+            text-align: center;
+            margin: 25px 0;
+            color: #8b1a1a;
+            font-size: 18px;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+            padding: 20px;
+            background: rgba(139, 26, 26, 0.05);
+            border-radius: 5px;
         }
 
         .event-details {
@@ -457,6 +463,31 @@
 
         .detail-item .value {
             color: #5a4a3a;
+        }
+
+        /* Extra Details Section - INSIDE event-details */
+        .extra-details-section {
+            background: rgba(232, 220, 200, 0.2);
+            padding: 20px 25px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: 1px dashed #c9b896;
+        }
+
+        .extra-details-content {
+            color: #5a4a3a;
+            font-size: 16px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .extra-details-content::before {
+            content: "📝 Additional Details:";
+            display: block;
+            font-weight: bold;
+            color: #6d1311;
+            margin-bottom: 10px;
+            font-size: 17px;
         }
 
         .save-buttons {
@@ -497,57 +528,6 @@
         .save-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-        }
-
-        .love-message {
-            text-align: center;
-            margin-top: 30px;
-            color: #8b1a1a;
-            font-size: 18px;
-            font-style: italic;
-            font-family: 'Georgia', serif;
-            padding: 20px;
-            background: rgba(139, 26, 26, 0.05);
-            border-radius: 5px;
-        }
-
-        /* Extra Details Section */
-        .extra-details-section {
-            background: rgba(232, 220, 200, 0.2);
-            padding: 20px 25px;
-            border-radius: 5px;
-            margin: 20px 0 0 0;
-            border: 1px dashed #c9b896;
-        }
-
-        .extra-details-content {
-            color: #5a4a3a;
-            font-size: 16px;
-            line-height: 1.8;
-            white-space: pre-wrap;
-        }
-
-        .extra-details-content::before {
-            content: "📝 Additional Details:";
-            display: block;
-            font-weight: bold;
-            color: #6d1311;
-            margin-bottom: 10px;
-            font-size: 17px;
-        }
-
-        @media (max-width: 768px) {
-            .envelope-wrapper {
-                width: 90%;
-                max-width: 350px;
-                height: auto;
-                aspect-ratio: 3 / 2;
-            }
-
-            .question-card, .details-card {
-                max-height: 85vh;
-                padding: 40px 25px;
-            }
         }
     </style>
 </head>
@@ -659,10 +639,6 @@
 
         // Apply configuration to CSS variables
         document.documentElement.style.setProperty('--recipient-initials', `"${sealInitials}"`);
-        document.documentElement.style.setProperty('--event-date', `"${eventDate}"`);
-        document.documentElement.style.setProperty('--event-title', `"${eventTitle}"`);
-        document.documentElement.style.setProperty('--event-location', `"${eventLocation}"`);
-        document.documentElement.style.setProperty('--personal-message', `"${personalMessage}"`);
 
         // Populate event details
         document.addEventListener('DOMContentLoaded', function() {
@@ -679,10 +655,9 @@
                 questionH1.textContent = `${recipientName}, will you be my Valentine?`;
             }
             
-            // Update cat icon with profile photo or GIF if provided
+            // Update cat icon with GIF or profile photo if provided
             const catIcon = document.querySelector('.cat-icon');
             if (gifUrl) {
-                // Try to load GIF
                 const img = document.createElement('img');
                 img.src = gifUrl;
                 img.style.width = '120px';
@@ -690,7 +665,6 @@
                 img.style.borderRadius = '10px';
                 img.style.objectFit = 'cover';
                 img.onerror = function() {
-                    // Fallback to cupid heart if GIF fails
                     catIcon.textContent = '💘';
                 };
                 img.onload = function() {
@@ -701,7 +675,7 @@
                 catIcon.innerHTML = `<img src="${profilePhoto}" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #e8dcc8;">`;
             }
 
-            // Show extra details if provided - moved inside event-details box
+            // Show extra details if provided - inside event-details box
             if (extraDetails) {
                 const extraSection = document.getElementById('extraDetailsSection');
                 const extraContent = document.getElementById('extraDetailsContent');
@@ -735,20 +709,17 @@
             envelopeOpened = true;
             clickHint.classList.add('hidden');
             
-            // After flap fully opens (1s animation), show card and allow dragging
             setTimeout(() => {
                 envelope.classList.remove('opening');
                 envelope.classList.add('opened');
                 letter.classList.add('hoverable');
-                envelopeWrapper.classList.add('allow-overflow'); // Allow card to be pulled out
-            }, 1000); // Wait for full flap animation to complete
+                envelopeWrapper.classList.add('allow-overflow');
+            }, 1000);
         });
 
         // Mouse drag on letter (pull out the card)
         letter.addEventListener('mousedown', function(e) {
             if (!envelopeOpened || letterPulledOut) return;
-            
-            // Only allow dragging after envelope is fully opened
             if (!envelope.classList.contains('opened')) return;
             
             isDragging = true;
@@ -763,10 +734,9 @@
             
             const deltaY = e.clientY - startY;
             
-            // Allow upward dragging (negative values) to pull the card UP and OUT
             if (deltaY < 0) {
-                currentY = Math.max(deltaY, -200); // Max pull out distance
-                const newTop = 140 + currentY; // Start from peeking position (140px)
+                currentY = Math.max(deltaY, -200);
+                const newTop = 140 + currentY;
                 letter.style.top = `${newTop}px`;
             }
         });
@@ -777,12 +747,10 @@
             isDragging = false;
             letter.style.transition = 'top 0.3s ease-out';
             
-            // If pulled out more than 100px upward, consider it fully pulled out
             if (currentY < -100) {
                 letterPulledOut = true;
-                letter.style.top = '-60px'; // Fully pulled out above envelope
+                letter.style.top = '-60px';
                 
-                // Transition to question card
                 setTimeout(() => {
                     envelopeWrapper.style.opacity = '0';
                     envelopeWrapper.style.transition = 'opacity 0.5s';
@@ -792,7 +760,6 @@
                     }, 500);
                 }, 800);
             } else {
-                // Snap back if not pulled enough
                 letter.style.top = '140px';
                 currentY = 0;
             }
@@ -865,7 +832,6 @@
                 let newX = Math.cos(angle) * moveDistance;
                 let newY = Math.sin(angle) * moveDistance;
                 
-                // Keep button within card bounds
                 const maxX = cardRect.width - noRect.width - 40;
                 const maxY = cardRect.height - noRect.height - 40;
                 
@@ -876,7 +842,7 @@
             }
         });
 
-        // No button touch support for mobile
+        // Touch support for mobile "No" button
         questionCard.addEventListener('touchmove', function(e) {
             const touch = e.touches[0];
             const noRect = noBtn.getBoundingClientRect();
