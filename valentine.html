@@ -30,12 +30,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .container {
             perspective: 1000px;
             position: relative;
+            padding: 40px 20px;
         }
 
         /* Envelope Styles */
@@ -378,7 +380,7 @@
         .btn-no {
             background: #e8dcc8;
             color: #2d1810;
-            position: absolute;
+            position: relative;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
@@ -813,6 +815,7 @@
         });
 
         // Make "No" button run away from mouse
+        let noButtonMoved = false;
         questionCard.addEventListener('mousemove', function(e) {
             const noRect = noBtn.getBoundingClientRect();
             const cardRect = questionCard.getBoundingClientRect();
@@ -826,19 +829,27 @@
             );
             
             if (distance < 120) {
+                if (!noButtonMoved) {
+                    noBtn.style.position = 'absolute';
+                    noBtn.style.left = noRect.left - cardRect.left + 'px';
+                    noBtn.style.top = noRect.top - cardRect.top + 'px';
+                    noButtonMoved = true;
+                }
+                
                 const angle = Math.atan2(noCenterY - e.clientY, noCenterX - e.clientX);
                 const moveDistance = 120;
                 
-                let newX = Math.cos(angle) * moveDistance;
-                let newY = Math.sin(angle) * moveDistance;
+                let newX = Math.cos(angle) * moveDistance + (noRect.left - cardRect.left);
+                let newY = Math.sin(angle) * moveDistance + (noRect.top - cardRect.top);
                 
                 const maxX = cardRect.width - noRect.width - 40;
                 const maxY = cardRect.height - noRect.height - 40;
                 
-                newX = Math.max(-maxX/2, Math.min(maxX/2, newX));
-                newY = Math.max(-maxY/2, Math.min(maxY/2, newY));
+                newX = Math.max(20, Math.min(maxX, newX));
+                newY = Math.max(20, Math.min(maxY, newY));
                 
-                noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+                noBtn.style.left = newX + 'px';
+                noBtn.style.top = newY + 'px';
             }
         });
 
@@ -857,19 +868,27 @@
             );
             
             if (distance < 120) {
+                if (!noButtonMoved) {
+                    noBtn.style.position = 'absolute';
+                    noBtn.style.left = noRect.left - cardRect.left + 'px';
+                    noBtn.style.top = noRect.top - cardRect.top + 'px';
+                    noButtonMoved = true;
+                }
+                
                 const angle = Math.atan2(noCenterY - touch.clientY, noCenterX - touch.clientX);
                 const moveDistance = 120;
                 
-                let newX = Math.cos(angle) * moveDistance;
-                let newY = Math.sin(angle) * moveDistance;
+                let newX = Math.cos(angle) * moveDistance + (noRect.left - cardRect.left);
+                let newY = Math.sin(angle) * moveDistance + (noRect.top - cardRect.top);
                 
                 const maxX = cardRect.width - noRect.width - 40;
                 const maxY = cardRect.height - noRect.height - 40;
                 
-                newX = Math.max(-maxX/2, Math.min(maxX/2, newX));
-                newY = Math.max(-maxY/2, Math.min(maxY/2, newY));
+                newX = Math.max(20, Math.min(maxX, newX));
+                newY = Math.max(20, Math.min(maxY, newY));
                 
-                noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+                noBtn.style.left = newX + 'px';
+                noBtn.style.top = newY + 'px';
             }
         });
 
