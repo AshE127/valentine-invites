@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Invitation Creator - Send the Perfect Digital Invite 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Georgia', 'Times New Roman', serif;
+        background: linear-gradient(135deg, #2c1810 0%, #3d2418 50%, #2c1810 100%);
+        color: #f4e8d8;
+        line-height: 1.6;
+    }
+
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #f4e8d8;
+        letter-spacing: 1px;
+    }
+
+    .hero .tagline {
+        font-size: 24px;
+        color: #f4e8d8;
+        margin-bottom: 40px;
+        font-style: italic;
+    }
+
+    .demo-video {
+        max-width: 600px;
+        width: 100%;
+        background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        border: 2px solid #c9b896;
+        margin: 30px 0;
+    }
+
+    .demo-video img {
+        width: 100%;
+        border-radius: 5px;
+        border: 2px solid #e8dcc8;
+    }
+
+    .features {
+        background: rgba(255, 254, 249, 0.05);
+        padding: 60px 20px;
+    }
+
+    .features-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .features h2 {
+        text-align: center;
+        font-size: 38px;
+        margin-bottom: 50px;
+        color: #fffef9;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+
+    .feature-card {
+        background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+        padding: 30px;
+        border-radius: 10px;
+        border: 2px solid #c9b896;
+        text-align: center;
+    }
+
+    .feature-card .icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+        color: #8b1a1a;
+        margin-bottom: 15px;
+        font-size: 22px;
+    }
+
+    .feature-card p {
+        color: #5a4a3a;
+        font-size: 16px;
+    }
+
+    .pricing-section {
+        background: rgba(139, 26, 26, 0.1);
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .pricing-box {
+        max-width: 500px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+        padding: 50px 40px;
+        border-radius: 10px;
+        border: 3px solid #8b1a1a;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .price {
+        font-size: 72px;
+        color: #8b1a1a;
+        font-weight: bold;
+        margin: 20px 0;
+    }
+
+    .price-description {
+        color: #5a4a3a;
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .payment-options {
+        background: rgba(232, 220, 200, 0.3);
+        padding: 25px;
+        border-radius: 5px;
+        border: 2px solid #c9b896;
+        margin: 30px 0;
+    }
+
+    .payment-options h3 {
+        color: #6d1311;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    .payment-method {
+        background: white;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        border: 2px solid #e8dcc8;
+    }
+
+    .payment-method strong {
+        color: #2d1810;
+        font-size: 18px;
+    }
+
+    .payment-method .handle {
+        color: #8b1a1a;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 0;
+        display: block;
+        word-break: break-all;
+    }
+
+    .payment-note {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+        color: #856404;
+    }
+
+    .steps {
+        text-align: left;
+        margin-top: 30px;
+        background: rgba(232, 220, 200, 0.2);
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .steps h4 {
+        color: #6d1311;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .steps ol {
+        padding-left: 25px;
+    }
+
+    .steps li {
+        color: #2d1810;
+        margin: 10px 0;
+        font-size: 16px;
+    }
+
+    .cta-button {
+        display: inline-block;
+        background: #8b1a1a;
+        color: #f4e8d8;
+        padding: 18px 50px;
+        font-size: 22px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 30px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3);
+        cursor: pointer;
+        border: none;
+        font-family: 'Georgia', serif;
+    }
+
+    .cta-button:hover {
+        background: #6d1311;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(139, 26, 26, 0.4);
+    }
+
+    .already-purchased {
+        margin-top: 30px;
+        padding: 20px;
+        background: rgba(232, 220, 200, 0.2);
+        border-radius: 5px;
+        color: #2d1810;
+    }
+
+    .already-purchased a {
+        color: #8b1a1a;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .testimonial-section {
+        padding: 60px 20px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .testimonial {
+        background: linear-gradient(to bottom, #fffef9, #f8f6f0);
+        padding: 30px;
+        border-radius: 10px;
+        border: 2px solid #c9b896;
+        margin: 20px 0;
+        font-style: italic;
+        color: #5a4a3a;
+    }
+
+    .testimonial-author {
+        margin-top: 15px;
+        color: #8b1a1a;
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        color: #d4c4a8;
+        font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 36px;
+        }
+
+        .hero .tagline {
+            font-size: 18px;
+        }
+
+        .price {
+            font-size: 56px;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .demo-video {
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .pricing-box {
+            padding: 30px 20px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>💝 Valentine Invitation Creator</h1>
+        <p class="tagline">Create stunning, interactive digital invitations in minutes</p>
+
+```
+    <div class="demo-video">
+        <h3 style="color: #8b1a1a; margin-bottom: 25px; text-align: center;">See It In Action ✨</h3>
+        
+        <!-- Step 1 -->
+        <div style="margin-bottom: 30px; text-align: center;">
+            <div style="background: #2c1810; padding: 50px 30px; border-radius: 5px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; min-height: 300px;">
+                <div style="width: 240px; height: 160px; background: linear-gradient(135deg, #f4e8d8 0%, #e8dcc8 100%); border: 3px solid #6d5a4a; border-radius: 5px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
+                    <!-- Flap triangle -->
+                    <div style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 120px solid transparent; border-right: 120px solid transparent; border-top: 80px solid #e0d5c5;"></div>
+                    <!-- Heart seal -->
+                    <div style="position: absolute; top: 64px; left: 50%; transform: translateX(-50%); font-size: 45px; z-index: 2;">❤️</div>
+                    <div style="position: absolute; top: 75px; left: 50%; transform: translateX(-50%); color: #5a0f0e; font-weight: bold; font-size: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); z-index: 3;">SK</div>
+                </div>
+            </div>
+            <p style="color: #f4e8d8; font-style: italic;"><strong>Step 1:</strong> Sealed envelope with custom initials</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="margin-bottom: 30px; text-align: center;">
+            <div style="background: #2c1810; padding: 40px; border-radius: 5px; margin-bottom: 15px;">
+                <div style="font-size: 80px; margin-bottom: 10px;">💘</div>
+                <div style="color: #f4e8d8; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Sarah, will you be my Valentine?</div>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                    <div style="background: #8b1a1a; color: #f4e8d8; padding: 12px 35px; border-radius: 5px; font-weight: bold;">Yes! 💕</div>
+                    <div style="background: #e8dcc8; color: #2d1810; padding: 12px 35px; border-radius: 5px;">No</div>
+                </div>
+            </div>
+            <p style="color: #f4e8d8; font-style: italic;"><strong>Step 2:</strong> The question (No button runs away!)</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="text-align: center;">
+            <div style="background: #2c1810; padding: 40px; border-radius: 5px; margin-bottom: 15px;">
+                <div style="font-size: 50px; margin-bottom: 15px;">🎉 💖 🎉</div>
+                <div style="color: #f4e8d8; font-size: 22px; font-weight: bold; margin-bottom: 20px;">Our Valentine's Plans</div>
+                <div style="background: rgba(232, 220, 200, 0.2); padding: 20px; border-radius: 5px;">
+                    <div style="color: #f4e8d8; text-align: left; margin: 10px 0;">📅 <strong>When:</strong> Friday, Feb 14 at 7 PM</div>
+                    <div style="color: #f4e8d8; text-align: left; margin: 10px 0;">🍽️ <strong>What:</strong> Romantic Dinner</div>
+                    <div style="color: #f4e8d8; text-align: left; margin: 10px 0;">📍 <strong>Where:</strong> Italian Restaurant</div>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
+                    <div style="background: #4285f4; color: white; padding: 10px 20px; border-radius: 5px; font-size: 14px;">📅 Google Calendar</div>
+                    <div style="background: #2d1810; color: #f4e8d8; padding: 10px 20px; border-radius: 5px; font-size: 14px;">🍎 Apple Calendar</div>
+                </div>
+            </div>
+            <p style="color: #f4e8d8; font-style: italic;"><strong>Step 3:</strong> Event details + calendar integration</p>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: rgba(139, 26, 26, 0.1); border-radius: 5px; border: 2px solid #8b1a1a;">
+            <p style="color: #5a4a3a; font-size: 14px; text-align: center;">
+                <strong style="color: #8b1a1a;">✨ Full Interactive Experience:</strong><br>
+                Click envelope → Seal breaks → Flap opens → Drag card out → Answer question → See details!
+            </p>
+        </div>
+    </div>
+
+    <a href="#pricing" class="cta-button">Get Started for $5</a>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="features-container">
+        <!-- 
+        TO ADD REAL SCREENSHOTS:
+        1. Take screenshots of your valentine.html invitation
+        2. Upload them to your GitHub repo (create a folder called "images")
+        3. Replace the mockups above with:
+           <img src="images/screenshot1.png" alt="Envelope" style="width: 100%; border-radius: 5px; border: 2px solid #e8dcc8;">
+        -->
+        
+        <h2>✨ What's Included</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🎨</div>
+                <h3>Personalized Wax Seal</h3>
+                <p>Custom initials on a heart-shaped seal that breaks when clicked</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">💌</div>
+                <h3>Interactive Animation</h3>
+                <p>Click to open envelope, drag the card out - just like real mail!</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">💘</div>
+                <h3>Romantic Question</h3>
+                <p>Pop the question with a playful "No" button that runs away</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📅</div>
+                <h3>Calendar Integration</h3>
+                <p>One-click add to Google Calendar or Apple Calendar</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">✍️</div>
+                <h3>Fully Customizable</h3>
+                <p>Date, time, location, personal message, and extra details</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🔗</div>
+                <h3>Easy to Share</h3>
+                <p>Generate a link and send via text, email, or social media</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonial-section">
+    <div class="testimonial">
+        "This is SO much better than a boring text! My partner loved the interactive envelope - it felt like opening a real valentine! 💕"
+        <div class="testimonial-author">— Sarah M.</div>
+    </div>
+
+    <div class="testimonial">
+        "Worth every penny! The calendar integration is genius. We both had it in our calendars instantly. No more 'I forgot' excuses! 😂"
+        <div class="testimonial-author">— Marcus T.</div>
+    </div>
+
+    <div class="testimonial">
+        "I used this for my anniversary and she said it was the most thoughtful digital thing I've ever sent. 10/10 recommend!"
+        <div class="testimonial-author">— James L.</div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing-section" id="pricing">
+    <div class="pricing-box">
+        <h2 style="color: #8b1a1a; margin-bottom: 10px;">Get Instant Access</h2>
+        <div class="price">$5</div>
+        <p class="price-description">One-time payment • Unlimited use • Create as many invitations as you want!</p>
+
+        <div class="payment-options">
+            <h3>💳 How to Purchase</h3>
+            
+            <div class="payment-method">
+                <strong>Venmo:</strong>
+                <span class="handle">@ash127</span>
+            </div>
+
+            <div class="payment-method">
+                <strong>Cash App:</strong>
+                <span class="handle">$ahsene</span>
+            </div>
+
+            <div class="payment-note">
+                <strong>⚠️ IMPORTANT:</strong> Include your email address in the payment note!
+            </div>
+        </div>
+
+        <div class="steps">
+            <h4>📝 Simple 3-Step Process:</h4>
+            <ol>
+                <li>Send <strong>$5</strong> via Venmo or Cash App</li>
+                <li>Include <strong>your email</strong> in the payment note</li>
+                <li>Receive your <strong>promo code</strong> within 24 hours (usually much faster!)</li>
+            </ol>
+        </div>
+
+        <button class="cta-button" onclick="alert('Send $5 to the Venmo or Cash App above and include your email in the note! You\'ll receive your promo code within 24 hours.')">Purchase Now - $5</button>
+
+        <div class="already-purchased">
+            <p style="margin-bottom: 15px; font-weight: bold;">Already purchased?</p>
+            <p style="font-size: 15px; line-height: 1.6; color: #5a4a3a;">
+                Check your email for your personalized link to create invitations!
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>Made with ❤️ for creating memorable moments</p>
+    <p style="margin-top: 10px; font-size: 12px;">Perfect for Valentine's Day, anniversaries, date proposals, and special occasions</p>
+</footer>
+
+<script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+```
+
+</body>
+</html>
