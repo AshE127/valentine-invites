@@ -36,10 +36,6 @@
         .container {
             perspective: 1000px;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
         }
 
         /* Envelope Styles */
@@ -75,49 +71,6 @@
             background: linear-gradient(135deg, #f4e8d8 0%, #e8dcc8 100%);
             border: 3px solid #6d5a4a;
             box-shadow: inset 0 1px 3px rgba(255,255,255,0.4);
-        }
-
-        /* Top flap - single triangle pointing down from top */
-        .envelope-flap {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 225px solid transparent;
-            border-right: 225px solid transparent;
-            border-top: 150px solid #e0d5c5;
-            top: 0;
-            left: 0;
-            transform-origin: top center;
-            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
-            z-index: 3;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-        }
-
-        /* Flap border */
-        .envelope-flap::before {
-            content: '';
-            position: absolute;
-            top: -150px;
-            left: -225px;
-            width: 0;
-            height: 0;
-            border-left: 225px solid transparent;
-            border-right: 225px solid transparent;
-            border-top: 150px solid #d4c8b8;
-            transform: scale(1.01);
-        }
-
-        .envelope.opening .envelope-flap {
-            animation: flapOpen 1s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
-        }
-
-        @keyframes flapOpen {
-            0% {
-                transform: rotateX(0deg);
-            }
-            100% {
-                transform: rotateX(180deg);
-            }
         }
 
         /* Top flap - single triangle pointing down from top */
@@ -366,10 +319,10 @@
             text-align: center;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             max-width: 550px;
-            max-height: 90vh;
-            overflow-y: auto;
             animation: fadeIn 0.8s;
             border: 2px solid #c9b896;
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
         @keyframes fadeIn {
@@ -382,7 +335,7 @@
         }
 
         .cat-icon {
-            font-size: 80px;
+            font-size: 70px;
             margin-bottom: 25px;
         }
 
@@ -448,10 +401,10 @@
             border-radius: 5px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             max-width: 650px;
-            max-height: 90vh;
-            overflow-y: auto;
             animation: fadeIn 0.8s;
             border: 2px solid #c9b896;
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
         .details-card.active {
@@ -553,10 +506,9 @@
             font-size: 18px;
             font-style: italic;
             font-family: 'Georgia', serif;
-        }
-
-        .love-message::before {
-            content: var(--personal-message);
+            padding: 20px;
+            background: rgba(139, 26, 26, 0.05);
+            border-radius: 5px;
         }
 
         /* Extra Details Section */
@@ -564,7 +516,7 @@
             background: rgba(232, 220, 200, 0.2);
             padding: 20px 25px;
             border-radius: 5px;
-            margin: 20px 0;
+            margin: 20px 0 0 0;
             border: 1px dashed #c9b896;
         }
 
@@ -584,26 +536,17 @@
             font-size: 17px;
         }
 
-        /* Mobile optimizations */
         @media (max-width: 768px) {
-            .details-card {
-                padding: 30px 25px;
-                max-height: 85vh;
-            }
-
-            .question-card {
-                padding: 40px 30px;
-            }
-
             .envelope-wrapper {
                 width: 90%;
                 max-width: 350px;
                 height: auto;
                 aspect-ratio: 3 / 2;
             }
-            
-            .container {
-                padding: 20px;
+
+            .question-card, .details-card {
+                max-height: 85vh;
+                padding: 40px 25px;
             }
         }
     </style>
@@ -634,7 +577,7 @@
 
         <!-- Question Card -->
         <div class="question-card" id="questionCard">
-            <div class="cat-icon">💘</div>
+            <div class="cat-icon">🐱</div>
             <h1>Will you be my Valentine?</h1>
             <div class="buttons">
                 <button class="btn btn-yes" id="yesBtn">Yes! 💕</button>
@@ -648,6 +591,8 @@
             <div class="celebration">🎉 💖 🎉</div>
             <h1>Our Valentine's Plans</h1>
             
+            <div class="love-message" id="loveMessage"></div>
+
             <div class="event-details">
                 <div class="detail-item">
                     <div class="icon">📅</div>
@@ -677,13 +622,13 @@
                     <div class="icon">👫</div>
                     <div>
                         <span class="label">Who:</span>
-                        <span class="value">Just you and me ❤️</span>
+                        <span class="value">You and I ❤️</span>
                     </div>
                 </div>
-            </div>
 
-            <div class="extra-details-section" id="extraDetailsSection" style="display: none;">
-                <div class="extra-details-content" id="extraDetailsContent"></div>
+                <div class="extra-details-section" id="extraDetailsSection" style="display: none;">
+                    <div class="extra-details-content" id="extraDetailsContent"></div>
+                </div>
             </div>
 
             <div class="save-buttons">
@@ -696,8 +641,6 @@
                     <span>Add to Apple Calendar</span>
                 </button>
             </div>
-
-            <div class="love-message"></div>
         </div>
     </div>
 
@@ -706,14 +649,13 @@
         const urlParams = new URLSearchParams(window.location.search);
         const recipientName = urlParams.get('name') || '';
         const sealInitials = urlParams.get('initials') || 'ZK';
-        const customGif = urlParams.get('gif') || '';
+        const profilePhoto = urlParams.get('photo') || '';
         const eventDate = urlParams.get('date') || 'Friday, February 14, 2026 at 7:00 PM';
         const eventTitle = urlParams.get('title') || 'Romantic Valentine\'s Dinner';
         const eventLocation = urlParams.get('location') || 'Our favorite restaurant';
         const personalMessage = urlParams.get('message') || "I can't wait to spend this special day with you! 💝";
         const extraDetails = urlParams.get('extra') || '';
-        const calendarStart = urlParams.get('start') || '20260214T190000';
-        const calendarEnd = urlParams.get('end') || '20260214T220000';
+        const gifUrl = urlParams.get('gif') || '';
 
         // Apply configuration to CSS variables
         document.documentElement.style.setProperty('--recipient-initials', `"${sealInitials}"`);
@@ -722,31 +664,44 @@
         document.documentElement.style.setProperty('--event-location', `"${eventLocation}"`);
         document.documentElement.style.setProperty('--personal-message', `"${personalMessage}"`);
 
-        // Get configuration values from CSS variables
-        const rootStyles = getComputedStyle(document.documentElement);
-        const eventDateText = rootStyles.getPropertyValue('--event-date').trim().replace(/"/g, '');
-        const eventTitleText = rootStyles.getPropertyValue('--event-title').trim().replace(/"/g, '');
-        const eventLocationText = rootStyles.getPropertyValue('--event-location').trim().replace(/"/g, '');
-
         // Populate event details
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('eventDate').textContent = eventDateText;
-            document.getElementById('eventTitle').textContent = eventTitleText;
-            document.getElementById('eventLocation').textContent = eventLocationText;
+            document.getElementById('eventDate').textContent = eventDate;
+            document.getElementById('eventTitle').textContent = eventTitle;
+            document.getElementById('eventLocation').textContent = eventLocation;
+            
+            // Display personal message
+            document.getElementById('loveMessage').textContent = personalMessage;
             
             // Update question card with recipient name if provided
             if (recipientName) {
                 const questionH1 = document.querySelector('.question-card h1');
                 questionH1.textContent = `${recipientName}, will you be my Valentine?`;
             }
-
-            // Replace cupid heart with custom GIF if provided
-            if (customGif) {
-                const catIcon = document.querySelector('.cat-icon');
-                catIcon.innerHTML = `<img src="${customGif}" alt="Custom GIF" style="max-width: 120px; max-height: 120px; border-radius: 10px; object-fit: contain;">`;
+            
+            // Update cat icon with profile photo or GIF if provided
+            const catIcon = document.querySelector('.cat-icon');
+            if (gifUrl) {
+                // Try to load GIF
+                const img = document.createElement('img');
+                img.src = gifUrl;
+                img.style.width = '120px';
+                img.style.height = '120px';
+                img.style.borderRadius = '10px';
+                img.style.objectFit = 'cover';
+                img.onerror = function() {
+                    // Fallback to cupid heart if GIF fails
+                    catIcon.textContent = '💘';
+                };
+                img.onload = function() {
+                    catIcon.innerHTML = '';
+                    catIcon.appendChild(img);
+                };
+            } else if (profilePhoto) {
+                catIcon.innerHTML = `<img src="${profilePhoto}" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #e8dcc8;">`;
             }
 
-            // Show extra details if provided
+            // Show extra details if provided - moved inside event-details box
             if (extraDetails) {
                 const extraSection = document.getElementById('extraDetailsSection');
                 const extraContent = document.getElementById('extraDetailsContent');
@@ -921,7 +876,7 @@
             }
         });
 
-        // Touch support for mobile - "No" button runs away from touch
+        // No button touch support for mobile
         questionCard.addEventListener('touchmove', function(e) {
             const touch = e.touches[0];
             const noRect = noBtn.getBoundingClientRect();
@@ -942,7 +897,6 @@
                 let newX = Math.cos(angle) * moveDistance;
                 let newY = Math.sin(angle) * moveDistance;
                 
-                // Keep button within card bounds
                 const maxX = cardRect.width - noRect.width - 40;
                 const maxY = cardRect.height - noRect.height - 40;
                 
@@ -959,13 +913,17 @@
             detailsCard.classList.add('active');
         });
 
+        // Parse calendar date from URL parameters
+        const startParam = urlParams.get('start') || '20260214T190000';
+        const endParam = urlParams.get('end') || '20260214T220000';
+
         // Calendar event details
         const eventDetails = {
-            title: eventTitleText,
+            title: eventTitle,
             description: "A special romantic dinner to celebrate our love! ❤️",
-            location: eventLocationText,
-            start: calendarStart,
-            end: calendarEnd
+            location: eventLocation,
+            start: startParam,
+            end: endParam
         };
 
         // Google Calendar
