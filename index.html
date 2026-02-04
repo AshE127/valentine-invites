@@ -158,6 +158,12 @@
             border: 2px solid #e8dcc8;
         }
 
+        .payment-method:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 26, 26, 0.2);
+            border-color: #8b1a1a;
+        }
+
         .payment-method strong {
             color: #2d1810;
             font-size: 18px;
@@ -445,15 +451,21 @@
             <div class="payment-options">
                 <h3>💳 How to Purchase</h3>
                 
-                <div class="payment-method">
-                    <strong>Venmo:</strong>
-                    <span class="handle">@ash127</span>
-                </div>
+                <a href="https://venmo.com/u/ash127?txn=pay&amount=5&note=Valentine%20Invitation%20-%20Please%20include%20your%20email" target="_blank" style="text-decoration: none; display: block;">
+                    <div class="payment-method" style="cursor: pointer; transition: transform 0.2s;">
+                        <strong>Venmo:</strong>
+                        <span class="handle">@ash127</span>
+                        <div style="color: #6d5a4a; font-size: 14px; margin-top: 8px;">👆 Click to pay $5</div>
+                    </div>
+                </a>
 
-                <div class="payment-method">
-                    <strong>Cash App:</strong>
-                    <span class="handle">$ahsene</span>
-                </div>
+                <a href="https://cash.app/$ahsene/5" target="_blank" style="text-decoration: none; display: block;">
+                    <div class="payment-method" style="cursor: pointer; transition: transform 0.2s;">
+                        <strong>Cash App:</strong>
+                        <span class="handle">$ahsene</span>
+                        <div style="color: #6d5a4a; font-size: 14px; margin-top: 8px;">👆 Click to pay $5</div>
+                    </div>
+                </a>
 
                 <div class="payment-note">
                     <strong>⚠️ IMPORTANT:</strong> Include your email address in the payment note!
