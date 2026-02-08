@@ -960,8 +960,16 @@
 
             <div class="email-wrap">
                 <label for="customer-email">📧 Your email — we'll send your invitation link here</label>
-                <input type="email" id="customer-email" class="email-input" placeholder="your@email.com">
+                <input type="email" id="customer-email" class="email-input" placeholder="your@email.com" oninput="checkEmailAndShowMemo()">
                 <div class="email-hint">Required before payment</div>
+
+                <!-- Memo helper - appears as soon as email looks valid -->
+                <div class="memo-helper" id="memo-helper">
+                    <p>📋 Copy this into your payment note:</p>
+                    <div class="memo-text" id="memo-text"></div>
+                    <button class="copy-btn" onclick="copyMemo()">📋 Copy to Clipboard</button>
+                    <span id="copy-confirm" style="display: none; color: #66bb6a; margin-left: 10px; font-size: 13px;">✓ Copied!</span>
+                </div>
             </div>
 
             <div id="venmo-btn" class="pay-btn" onclick="openPayment('venmo')">
@@ -994,13 +1002,6 @@
                 <div class="pay-amount-badge">$<span class="pay-amount">10</span></div>
             </div>
 
-            <!-- Memo helper -->
-            <div class="memo-helper" id="memo-helper">
-                <p>📋 Copy this into your payment note:</p>
-                <div class="memo-text" id="memo-text"></div>
-                <button class="copy-btn" onclick="copyMemo()">📋 Copy to Clipboard</button>
-                <span id="copy-confirm" style="display: none; color: #66bb6a; margin-left: 10px; font-size: 13px;">✓ Copied!</span>
-            </div>
 
             <div class="payment-note">
                 ⚠️ Include your <strong>email</strong> in the payment note so we know where to send your link!
@@ -1197,6 +1198,26 @@
             }
         }
 
+        // ===== AUTO-DETECT EMAIL & SHOW MEMO =====
+        function checkEmailAndShowMemo() {
+            const el = document.getElementById('customer-email');
+            const email = el.value.trim();
+            const helper = document.getElementById('memo-helper');
+            const memoText = document.getElementById('memo-text');
+
+            // Check if email looks valid (has @ and ends with common TLD patterns)
+            const looksValid = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email);
+
+            if (looksValid) {
+                memoText.textContent = buildMemo(email);
+                helper.style.display = 'block';
+                el.style.borderColor = '#4caf50';
+            } else {
+                helper.style.display = 'none';
+                el.style.borderColor = 'rgba(201, 168, 76, 0.2)';
+            }
+        }
+
         // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
@@ -1288,9 +1309,6 @@
             const memo = buildMemo(email);
             const enc = encodeURIComponent(memo);
 
-            document.getElementById('memo-helper').style.display = 'block';
-            document.getElementById('memo-text').textContent = memo;
-
             let url = '';
             if (platform === 'venmo') url = `https://venmo.com/u/${VENMO_HANDLE}?txn=pay&amount=${price}&note=${enc}`;
             else if (platform === 'cashapp') url = `https://cash.app/$${CASHAPP_HANDLE}/${price}`;
@@ -1336,9 +1354,6 @@
             const price = getFinalPrice();
             const code = getPromoCode();
             const codeText = code ? ` with code ${code.toUpperCase()}` : '';
-
-            document.getElementById('memo-helper').style.display = 'block';
-            document.getElementById('memo-text').textContent = buildMemo(email);
 
             alert(
                 `Send $${price}${codeText} via Venmo, Cash App, or PayPal.\n\n` +
