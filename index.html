@@ -120,8 +120,8 @@
 
         /* ===== DEMO PREVIEW ===== */
         .demo-section {
-            padding: 0 20px 80px;
-            max-width: 700px;
+            padding: 0 20px 60px;
+            max-width: 480px;
             margin: -40px auto 0;
             position: relative;
             z-index: 2;
@@ -157,11 +157,12 @@
         .demo-step {
             min-width: 100%;
             scroll-snap-align: start;
-            padding: 40px 30px;
+            padding: 24px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            justify-content: center;
         }
 
         .demo-step .step-num {
@@ -170,20 +171,20 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--crimson);
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .demo-step .step-title {
             font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            margin-top: 16px;
+            font-size: 17px;
+            margin-top: 12px;
             color: var(--cream);
         }
 
         .demo-step .step-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--ink-muted);
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         /* Envelope mini */
@@ -693,14 +694,74 @@
             margin-bottom: 40px;
         }
 
+        .features-carousel-wrap {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-carousel-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 40px;
+            width: 60px;
+            background: linear-gradient(to right, transparent, var(--ink));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .feat-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .feat-arrow {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
+            color: var(--cream);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .feat-arrow:hover {
+            background: var(--crimson);
+            border-color: var(--crimson);
+        }
+
+        .feat-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .feat-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 0;
+            transition: all 0.3s;
+        }
+        .feat-dot.active {
+            background: var(--crimson);
+            width: 18px;
+            border-radius: 3px;
+        }
+
         .features-carousel {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 16px;
-            padding: 0 20px 20px;
-            max-width: 900px;
-            margin: 0 auto;
+            gap: 14px;
+            padding: 0 20px 16px;
             scrollbar-width: none;
         }
         .features-carousel::-webkit-scrollbar { display: none; }
@@ -1028,6 +1089,7 @@
     <section class="features-section">
         <div class="section-label">Everything Included</div>
         <h2>What You Get</h2>
+        <div class="features-carousel-wrap">
         <div class="features-carousel">
             <div class="feat-card">
                 <div class="feat-icon">🎨</div>
@@ -1064,6 +1126,20 @@
                 <h3>Easy to Share</h3>
                 <p>One link — send via text, email, or DM</p>
             </div>
+        </div>
+        <div class="feat-nav">
+            <button class="feat-arrow" onclick="scrollFeatCarousel(-1)">‹</button>
+            <div class="feat-dots" id="featDots">
+                <div class="feat-dot active"></div>
+                <div class="feat-dot"></div>
+                <div class="feat-dot"></div>
+                <div class="feat-dot"></div>
+                <div class="feat-dot"></div>
+                <div class="feat-dot"></div>
+                <div class="feat-dot"></div>
+            </div>
+            <button class="feat-arrow" onclick="scrollFeatCarousel(1)">›</button>
+        </div>
         </div>
     </section>
 
@@ -1217,6 +1293,21 @@
                 el.style.borderColor = 'rgba(201, 168, 76, 0.2)';
             }
         }
+
+        // ===== FEATURES CAROUSEL =====
+        const featCarousel = document.querySelector('.features-carousel');
+        const featDots = document.querySelectorAll('.feat-dot');
+
+        function scrollFeatCarousel(dir) {
+            const cardWidth = 274; // 260 + 14 gap
+            featCarousel.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+        }
+
+        featCarousel.addEventListener('scroll', () => {
+            const cardWidth = 274;
+            const idx = Math.round(featCarousel.scrollLeft / cardWidth);
+            featDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        });
 
         // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(a => {
