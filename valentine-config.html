@@ -558,6 +558,9 @@
         }
 
         function generateURL(config) {
+            // FIXED: Use absolute URL for GitHub Pages
+            const baseURL = 'https://ashe127.github.io/valentine-invites/valentine.html';
+            
             const params = new URLSearchParams({
                 name: config.recipientName,
                 initials: config.sealInitials,
@@ -577,7 +580,7 @@
                 params.append('extra', config.extraDetails);
             }
 
-            return `${window.location.origin}${window.location.pathname.replace('valentine-config.html', 'valentine.html')}?${params.toString()}`;
+            return `${baseURL}?${params.toString()}`;
         }
 
         function generatePreviewURL(config) {
