@@ -245,6 +245,11 @@
             background: #155724;
         }
 
+        .gif-quick-links a:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
         @media (max-width: 600px) {
             .config-container {
                 padding: 30px 25px;
@@ -317,7 +322,33 @@
                     <span class="label-description">Add a direct GIF link to replace the cupid heart on the question page</span>
                 </label>
                 <input type="url" id="customGif" placeholder="Right-click GIF → Copy Image Address → Paste here">
-                <div class="preview-note">
+                
+                <!-- Quick Access GIF Links -->
+                <div class="gif-quick-links" style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="https://tenor.com/search/valentine-gifs" target="_blank" style="padding: 8px 16px; background: #00b8ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                        🎬 Tenor Valentines
+                    </a>
+                    <a href="https://giphy.com/search/valentine" target="_blank" style="padding: 8px 16px; background: #ff6666; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                        💕 GIPHY Valentines
+                    </a>
+                    <a href="https://tenor.com/search/love-heart-gifs" target="_blank" style="padding: 8px 16px; background: #e91e63; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                        ❤️ Love Hearts
+                    </a>
+                    <a href="https://tenor.com/search/romantic-gifs" target="_blank" style="padding: 8px 16px; background: #9c27b0; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                        🌹 Romantic
+                    </a>
+                    <a href="https://tenor.com/search/cute-love-gifs" target="_blank" style="padding: 8px 16px; background: #ff4081; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                        🥰 Cute Love
+                    </a>
+                </div>
+                
+                <div class="preview-note" style="margin-top: 12px;">
+                    <strong>📝 How to get the GIF URL:</strong><br>
+                    1. Click a button above to browse GIFs<br>
+                    2. Find a GIF you like<br>
+                    3. <strong>Right-click</strong> on the GIF → Select <strong>"Copy Image Address"</strong><br>
+                    4. Paste the URL in the box above<br>
+                    <br>
                     <strong>⚠️ IMPORTANT:</strong> URL must end with <strong>.gif</strong><br>
                     <strong>✅ Test the preview below before generating your link!</strong><br>
                     If preview doesn't work or link is wrong, the default cupid heart 💘 will show instead.
