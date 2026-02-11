@@ -250,6 +250,139 @@
             transform: translateY(-1px);
         }
 
+        .gif-section {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #ffcccc;
+            box-shadow: 0 4px 12px rgba(255, 100, 100, 0.1);
+        }
+
+        .gif-section-title {
+            color: #d63384;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gif-input-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .gif-input-wrapper input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            font-size: 16px;
+            border: 2px solid #ffcccc;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .gif-input-wrapper input:focus {
+            border-color: #d63384;
+            box-shadow: 0 0 0 3px rgba(214, 51, 132, 0.1);
+        }
+
+        .gif-input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .gif-quick-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .gif-quick-links a {
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .gif-instructions {
+            background: white;
+            padding: 18px;
+            border-radius: 8px;
+            border-left: 4px solid #d63384;
+            margin-bottom: 20px;
+        }
+
+        .gif-instructions strong {
+            color: #d63384;
+        }
+
+        .gif-instructions ol {
+            margin: 10px 0 10px 20px;
+            color: #5a4a3a;
+        }
+
+        .gif-instructions li {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .gif-preview-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ffcccc;
+        }
+
+        .gif-preview-container img {
+            max-width: 250px;
+            max-height: 250px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .gif-preview-placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .datetime-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .datetime-row .form-group {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 600px) {
+            .datetime-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
         @media (max-width: 600px) {
             .config-container {
                 padding: 30px 25px;
@@ -315,45 +448,60 @@
                 <div class="char-count"><span id="initialsCount">0</span>/3</div>
             </div>
 
-            <!-- Custom GIF (Optional) -->
-            <div class="form-group">
-                <label for="customGif">
-                    Custom GIF (Optional)
-                    <span class="label-description">Add a direct GIF link to replace the cupid heart on the question page</span>
-                </label>
-                <input type="url" id="customGif" placeholder="Right-click GIF → Copy Image Address → Paste here">
-                
-                <!-- Quick Access GIF Links -->
-                <div class="gif-quick-links" style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="https://tenor.com/search/valentine-gifs" target="_blank" style="padding: 8px 16px; background: #00b8ff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+            <!-- Custom GIF Section - MODERNIZED -->
+            <div class="gif-section">
+                <div class="gif-section-title">
+                    🎬 Custom GIF Animation (Optional)
+                </div>
+                <p style="color: #6d5a4a; margin-bottom: 20px; font-size: 15px;">
+                    Replace the default cupid heart with your own romantic GIF!
+                </p>
+
+                <!-- Quick Access Buttons -->
+                <div class="gif-quick-links">
+                    <a href="https://tenor.com/search/valentine-gifs" target="_blank" style="background: #00b8ff;">
                         🎬 Tenor Valentines
                     </a>
-                    <a href="https://giphy.com/search/valentine" target="_blank" style="padding: 8px 16px; background: #ff6666; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                    <a href="https://giphy.com/search/valentine" target="_blank" style="background: #ff6666;">
                         💕 GIPHY Valentines
                     </a>
-                    <a href="https://tenor.com/search/love-heart-gifs" target="_blank" style="padding: 8px 16px; background: #e91e63; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                    <a href="https://tenor.com/search/love-heart-gifs" target="_blank" style="background: #e91e63;">
                         ❤️ Love Hearts
                     </a>
-                    <a href="https://tenor.com/search/romantic-gifs" target="_blank" style="padding: 8px 16px; background: #9c27b0; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                    <a href="https://tenor.com/search/romantic-gifs" target="_blank" style="background: #9c27b0;">
                         🌹 Romantic
                     </a>
-                    <a href="https://tenor.com/search/cute-love-gifs" target="_blank" style="padding: 8px 16px; background: #ff4081; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: bold; display: inline-block;">
+                    <a href="https://tenor.com/search/cute-love-gifs" target="_blank" style="background: #ff4081;">
                         🥰 Cute Love
                     </a>
                 </div>
-                
-                <div class="preview-note" style="margin-top: 12px;">
-                    <strong>📝 How to get the GIF URL:</strong><br>
-                    1. Click a button above to browse GIFs<br>
-                    2. Find a GIF you like<br>
-                    3. <strong>Right-click</strong> on the GIF → Select <strong>"Copy Image Address"</strong><br>
-                    4. Paste the URL in the box above<br>
-                    <br>
-                    <strong>⚠️ IMPORTANT:</strong> URL must end with <strong>.gif</strong><br>
-                    <strong>✅ Test the preview below before generating your link!</strong><br>
-                    If preview doesn't work or link is wrong, the default cupid heart 💘 will show instead.
+
+                <!-- Instructions Card -->
+                <div class="gif-instructions">
+                    <strong>📝 How to Add Your GIF:</strong>
+                    <ol>
+                        <li>Click any button above to browse GIFs</li>
+                        <li>Find a GIF you love</li>
+                        <li><strong>Right-click</strong> on the GIF → <strong>"Copy Image Address"</strong></li>
+                        <li>Paste the URL below</li>
+                    </ol>
+                    <div style="margin-top: 12px; padding: 10px; background: #fff3cd; border-radius: 5px; font-size: 13px;">
+                        <strong>⚠️ Important:</strong> URL must end with <strong>.gif</strong> — Test the preview below!
+                    </div>
                 </div>
-                <div class="image-preview" id="gifPreview"></div>
+
+                <!-- GIF URL Input -->
+                <div class="gif-input-wrapper">
+                    <span class="gif-input-icon">🔗</span>
+                    <input type="url" id="customGif" placeholder="Paste your GIF URL here (must end with .gif)">
+                </div>
+
+                <!-- GIF Preview -->
+                <div class="gif-preview-container" id="gifPreview">
+                    <div class="gif-preview-placeholder">
+                        Your GIF preview will appear here
+                    </div>
+                </div>
             </div>
 
             <div class="divider"></div>
@@ -362,20 +510,22 @@
             <div class="event-details-section">
                 <h3>Valentine's Date Details</h3>
 
-                <div class="form-group">
-                    <label for="eventDate">Date</label>
-                    <input type="date" id="eventDate" required>
-                </div>
+                <!-- Date/Time/Duration Row -->
+                <div class="datetime-row">
+                    <div class="form-group">
+                        <label for="eventDate">Date</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="eventTime">Time</label>
-                    <input type="time" id="eventTime" required>
-                </div>
+                    <div class="form-group">
+                        <label for="eventTime">Time</label>
+                        <input type="time" id="eventTime" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="eventDuration">Duration (hours)</label>
-                    <input type="number" id="eventDuration" min="1" max="8" value="3" required>
-                    <div class="label-description" style="margin-top: 5px;">How long will the event last?</div>
+                    <div class="form-group">
+                        <label for="eventDuration">Duration (hours)</label>
+                        <input type="number" id="eventDuration" min="1" max="8" value="3" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -463,28 +613,30 @@
             document.getElementById('extraCount').textContent = e.target.value.length;
         });
 
-        // GIF URL preview and validation
+        // GIF URL preview and validation - MODERNIZED
         document.getElementById('customGif').addEventListener('input', function(e) {
             let gifUrl = e.target.value.trim();
             const preview = document.getElementById('gifPreview');
             
             if (!gifUrl) {
-                preview.innerHTML = '';
+                preview.innerHTML = '<div class="gif-preview-placeholder">Your GIF preview will appear here</div>';
                 return;
             }
             
             // Check if URL ends with .gif
             if (!gifUrl.toLowerCase().endsWith('.gif')) {
                 preview.innerHTML = `
-                    <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 5px; margin-top: 10px; color: #856404;">
-                        <strong>❌ Invalid URL</strong><br>
-                        URL must end with <strong>.gif</strong><br>
-                        <br>
-                        <strong>How to fix:</strong><br>
-                        1. Go to the GIF on Tenor/Giphy<br>
-                        2. <strong>Right-click</strong> on the GIF<br>
-                        3. Select <strong>"Copy Image Address"</strong><br>
-                        4. Paste here (should end with .gif)
+                    <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 8px; color: #856404; text-align: left; width: 100%;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">❌</div>
+                        <strong style="font-size: 16px;">Invalid URL Format</strong><br><br>
+                        <div style="font-size: 14px; line-height: 1.6;">
+                            URL must end with <strong>.gif</strong><br><br>
+                            <strong>Quick Fix:</strong><br>
+                            1. Go back to Tenor/Giphy<br>
+                            2. <strong>Right-click</strong> the GIF<br>
+                            3. Select <strong>"Copy Image Address"</strong><br>
+                            4. Paste here
+                        </div>
                     </div>
                 `;
                 return;
@@ -492,12 +644,16 @@
             
             // Try to load the GIF
             preview.innerHTML = `
-                <div style="margin-top: 15px; text-align: center;">
-                    <div style="color: #6d5a4a; font-size: 14px; margin-bottom: 10px;">📡 Testing GIF...</div>
+                <div style="text-align: center; width: 100%;">
+                    <div style="color: #6d5a4a; font-size: 14px; margin-bottom: 15px;">
+                        <div style="display: inline-block; padding: 8px 16px; background: #fff3cd; border-radius: 20px;">
+                            ⏳ Testing GIF...
+                        </div>
+                    </div>
                     <img src="${gifUrl}" alt="GIF Preview" 
-                         style="max-width: 150px; max-height: 150px; border-radius: 10px; border: 3px solid #e8dcc8;" 
-                         onload="this.previousElementSibling.innerHTML='<span style=color:#28a745;font-weight:bold;>✅ GIF works! Preview:</span>'"
-                         onerror="this.parentElement.innerHTML='<div style=background:#f8d7da;border:2px solid #dc3545;padding:15px;border-radius:5px;color:#721c24;><strong>❌ GIF Failed to Load</strong><br>This GIF will NOT work in your invitation.<br><br><strong>What to do:</strong><br>1. Try a different GIF<br>2. Make sure URL ends with .gif<br>3. Right-click → Copy Image Address<br><br>If this doesn\'t work, leave blank and the cupid heart 💘 will show instead.</div>'">
+                         style="max-width: 250px; max-height: 250px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" 
+                         onload="this.previousElementSibling.innerHTML='<div style=display:inline-block;padding:8px 16px;background:#d4edda;border-radius:20px;color:#155724;font-weight:bold;>✅ GIF Preview:</div>'"
+                         onerror="this.parentElement.innerHTML='<div style=background:#f8d7da;border:2px solid #dc3545;padding:20px;border-radius:8px;color:#721c24;text-align:left;width:100%;><div style=font-size:24px;margin-bottom:10px;>❌</div><strong style=font-size:16px;>GIF Failed to Load</strong><br><br><div style=font-size:14px;line-height:1.6;>This GIF will NOT work in your invitation.<br><br><strong>Solutions:</strong><br>• Try a different GIF<br>• Verify URL ends with .gif<br>• Use Right-click → Copy Image Address<br><br>💡 Leave blank to use default cupid heart 💘</div></div>'">
                 </div>
             `;
         });
