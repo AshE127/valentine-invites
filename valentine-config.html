@@ -418,9 +418,28 @@
         <div class="success-message" id="successMessage">
             <h3>🎉 Your Valentine's Invitation is Ready!</h3>
             <p style="margin: 15px 0;">Share this link with your special someone:</p>
-            <div class="link-container">
-                <input type="text" class="link-input" id="generatedLink" readonly>
-                <button class="copy-btn" id="copyBtn">Copy</button>
+            
+            <!-- Short Link (Primary) -->
+            <div id="shortLinkSection" style="display: none;">
+                <p style="font-size: 14px; color: #155724; margin-bottom: 8px; font-weight: bold;">✨ Short Link (Recommended):</p>
+                <div class="link-container">
+                    <input type="text" class="link-input" id="shortLink" readonly>
+                    <button class="copy-btn" id="copyShortBtn">Copy</button>
+                </div>
+            </div>
+            
+            <!-- Loading Message -->
+            <div id="shorteningMessage" style="display: none; padding: 15px; background: #fff3cd; border: 2px solid #ffc107; border-radius: 5px; margin-bottom: 15px; color: #856404;">
+                <strong>⏳ Creating short link...</strong>
+            </div>
+            
+            <!-- Original Link (Fallback) -->
+            <div id="originalLinkSection">
+                <p style="font-size: 14px; color: #6c757d; margin-bottom: 8px; margin-top: 15px;">Original Link:</p>
+                <div class="link-container">
+                    <input type="text" class="link-input" id="generatedLink" readonly>
+                    <button class="copy-btn" id="copyBtn">Copy</button>
+                </div>
             </div>
         </div>
     </div>
@@ -515,17 +534,63 @@
             linkInput.value = url;
             successMessage.classList.add('show');
             
+            // Show shortening message
+            document.getElementById('shorteningMessage').style.display = 'block';
+            document.getElementById('shortLinkSection').style.display = 'none';
+            
+            // Auto-shorten the link
+            shortenURL(url);
+            
             // Scroll to success message
             successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
 
-        // Copy link button
+        // URL Shortening Function
+        async function shortenURL(longUrl) {
+            try {
+                // Using is.gd API (free, no API key needed)
+                const response = await fetch(`https://is.gd/create.php?format=json&url=${encodeURIComponent(longUrl)}`);
+                const data = await response.json();
+                
+                if (data.shorturl) {
+                    // Success! Show the short link
+                    document.getElementById('shortLink').value = data.shorturl;
+                    document.getElementById('shorteningMessage').style.display = 'none';
+                    document.getElementById('shortLinkSection').style.display = 'block';
+                } else {
+                    // Failed, hide the loading message
+                    document.getElementById('shorteningMessage').style.display = 'none';
+                }
+            } catch (error) {
+                // If shortening fails, just hide the message (original link still works)
+                console.error('Link shortening failed:', error);
+                document.getElementById('shorteningMessage').style.display = 'none';
+            }
+        }
+
+        // Copy link button (original)
         document.getElementById('copyBtn').addEventListener('click', function() {
             const linkInput = document.getElementById('generatedLink');
             linkInput.select();
             document.execCommand('copy');
             
             const btn = document.getElementById('copyBtn');
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+
+        // Copy short link button
+        document.getElementById('copyShortBtn').addEventListener('click', function() {
+            const linkInput = document.getElementById('shortLink');
+            linkInput.select();
+            document.execCommand('copy');
+            
+            const btn = document.getElementById('copyShortBtn');
             btn.textContent = 'Copied!';
             btn.classList.add('copied');
             
