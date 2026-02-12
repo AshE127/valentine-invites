@@ -253,13 +253,30 @@
         }
         .datetime-row .form-group {
             margin-bottom: 0;
+            min-width: 0;
         }
         .datetime-row label {
             font-size: 14px;
         }
         .datetime-row input {
-            padding: 10px 8px;
-            font-size: 14px;
+            padding: 10px 6px;
+            font-size: 13px;
+            min-width: 0;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        @media (max-width: 400px) {
+            .datetime-row {
+                gap: 6px;
+            }
+            .datetime-row label {
+                font-size: 12px;
+            }
+            .datetime-row input {
+                padding: 8px 4px;
+                font-size: 11px;
+            }
         }
 
         @media (max-width: 600px) {
