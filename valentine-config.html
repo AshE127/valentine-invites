@@ -263,8 +263,6 @@
             font-size: 13px;
             min-width: 0;
             width: 100%;
-            -webkit-appearance: none;
-            appearance: none;
         }
         @media (max-width: 400px) {
             .datetime-row {
@@ -315,11 +313,11 @@
     </script>
 
     <div class="config-container">
-        <h1>Create Your Valentine's Invitation ðŸ’</h1>
+        <h1>Create Your Valentine's Invitation &#240;&#376;&#8217;&#157;</h1>
         <p class="subtitle">Customize your romantic invitation in just a few steps</p>
 
         <div id="welcomeMessage" style="background: #d4edda; border: 2px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 30px; text-align: center;">
-            <strong>âœ… Access Granted!</strong><br>
+            <strong>&#226;&#339;&#8230; Access Granted!</strong><br>
             Your promo code: <strong id="promoCodeDisplay"></strong>
         </div>
 
@@ -350,11 +348,11 @@
                     Custom GIF (Optional)
                     <span class="label-description">Add a direct GIF link to replace the cupid heart on the question page</span>
                 </label>
-                <input type="url" id="customGif" placeholder="Right-click GIF â†’ Copy Image Address â†’ Paste here">
+                <input type="url" id="customGif" placeholder="Right-click GIF &#226;&#8224;&#8217; Copy Image Address &#226;&#8224;&#8217; Paste here">
                 <div class="preview-note">
-                    <strong>âš ï¸ IMPORTANT:</strong> URL must end with <strong>.gif</strong><br>
-                    <strong>âœ… Test the preview below before generating your link!</strong><br>
-                    If preview doesn't work or link is wrong, the default cupid heart ðŸ’˜ will show instead.
+                    <strong>&#226;&#353;&#160;&#239;&#184;&#143; IMPORTANT:</strong> URL must end with <strong>.gif</strong><br>
+                    <strong>&#226;&#339;&#8230; Test the preview below before generating your link!</strong><br>
+                    If preview doesn't work or link is wrong, the default cupid heart &#240;&#376;&#8217;&#732; will show instead.
                 </div>
                 <div class="image-preview" id="gifPreview"></div>
             </div>
@@ -370,12 +368,10 @@
                         <label for="eventDate">Date</label>
                         <input type="date" id="eventDate" required>
                     </div>
-
                     <div class="form-group">
                         <label for="eventTime">Time</label>
                         <input type="time" id="eventTime" required>
                     </div>
-
                     <div class="form-group">
                         <label for="eventDuration">Duration</label>
                         <input type="number" id="eventDuration" min="1" max="8" value="3" required>
@@ -394,7 +390,7 @@
 
                 <div class="form-group">
                     <label for="personalMessage">Personal Message</label>
-                    <textarea id="personalMessage" rows="3" placeholder="e.g., I can't wait to spend this special day with you! ðŸ’" maxlength="200"></textarea>
+                    <textarea id="personalMessage" rows="3" placeholder="e.g., I can't wait to spend this special day with you! &#240;&#376;&#8217;&#157;" maxlength="200"></textarea>
                     <div class="char-count"><span id="messageCount">0</span>/200</div>
                 </div>
             </div>
@@ -420,7 +416,7 @@
 
         <!-- Success Message -->
         <div class="success-message" id="successMessage">
-            <h3>ðŸŽ‰ Your Valentine's Invitation is Ready!</h3>
+            <h3>&#240;&#376;&#381;&#8240; Your Valentine's Invitation is Ready!</h3>
             <p style="margin: 15px 0;">Share this link with your special someone:</p>
             <div class="link-container">
                 <input type="text" class="link-input" id="generatedLink" readonly>
@@ -462,7 +458,7 @@
             if (!gifUrl.toLowerCase().endsWith('.gif')) {
                 preview.innerHTML = `
                     <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 5px; margin-top: 10px; color: #856404;">
-                        <strong>âŒ Invalid URL</strong><br>
+                        <strong>&#226;&#157;&#338; Invalid URL</strong><br>
                         URL must end with <strong>.gif</strong><br>
                         <br>
                         <strong>How to fix:</strong><br>
@@ -478,11 +474,11 @@
             // Try to load the GIF
             preview.innerHTML = `
                 <div style="margin-top: 15px; text-align: center;">
-                    <div style="color: #6d5a4a; font-size: 14px; margin-bottom: 10px;">ðŸ“¡ Testing GIF...</div>
+                    <div style="color: #6d5a4a; font-size: 14px; margin-bottom: 10px;">&#240;&#376;&#8220;&#161; Testing GIF...</div>
                     <img src="${gifUrl}" alt="GIF Preview" 
                          style="max-width: 150px; max-height: 150px; border-radius: 10px; border: 3px solid #e8dcc8;" 
-                         onload="this.previousElementSibling.innerHTML='<span style=color:#28a745;font-weight:bold;>âœ… GIF works! Preview:</span>'"
-                         onerror="this.parentElement.innerHTML='<div style=background:#f8d7da;border:2px solid #dc3545;padding:15px;border-radius:5px;color:#721c24;><strong>âŒ GIF Failed to Load</strong><br>This GIF will NOT work in your invitation.<br><br><strong>What to do:</strong><br>1. Try a different GIF<br>2. Make sure URL ends with .gif<br>3. Right-click â†’ Copy Image Address<br><br>If this doesn\'t work, leave blank and the cupid heart ðŸ’˜ will show instead.</div>'">
+                         onload="this.previousElementSibling.innerHTML='<span style=color:#28a745;font-weight:bold;>&#226;&#339;&#8230; GIF works! Preview:</span>'"
+                         onerror="this.parentElement.innerHTML='<div style=background:#f8d7da;border:2px solid #dc3545;padding:15px;border-radius:5px;color:#721c24;><strong>&#226;&#157;&#338; GIF Failed to Load</strong><br>This GIF will NOT work in your invitation.<br><br><strong>What to do:</strong><br>1. Try a different GIF<br>2. Make sure URL ends with .gif<br>3. Right-click &#226;&#8224;&#8217; Copy Image Address<br><br>If this doesn\'t work, leave blank and the cupid heart &#240;&#376;&#8217;&#732; will show instead.</div>'">
                 </div>
             `;
         });
@@ -507,7 +503,7 @@
             // Validate GIF URL if provided
             const gifUrl = document.getElementById('customGif').value.trim();
             if (gifUrl && !gifUrl.toLowerCase().endsWith('.gif')) {
-                alert('âš ï¸ Warning: Your GIF URL does not end with .gif\n\nThe GIF may not work in your invitation. The default cupid heart will show instead.\n\nTo fix: Right-click the GIF â†’ Copy Image Address');
+                alert('&#226;&#353;&#160;&#239;&#184;&#143; Warning: Your GIF URL does not end with .gif\n\nThe GIF may not work in your invitation. The default cupid heart will show instead.\n\nTo fix: Right-click the GIF &#226;&#8224;&#8217; Copy Image Address');
             }
             
             const config = getFormData();
@@ -585,7 +581,7 @@
                 eventDate: displayDateTime,
                 eventTitle: document.getElementById('eventTitle').value,
                 eventLocation: document.getElementById('eventLocation').value,
-                personalMessage: document.getElementById('personalMessage').value || "I can't wait to spend this special day with you! ðŸ’",
+                personalMessage: document.getElementById('personalMessage').value || "I can't wait to spend this special day with you! &#240;&#376;&#8217;&#157;",
                 extraDetails: document.getElementById('extraDetails').value,
                 calendarStart: calendarStart,
                 calendarEnd: calendarEnd
